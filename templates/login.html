@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Login{% endblock %}
+
+{% block content %}
+<h2>Admin Login</h2>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, msg in messages %}
+      <div style="padding: 10px; margin-bottom: 15px; background-color: #f8d7da; color: #721c24;">
+        {{ msg }}
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+<form action="{{ url_for('login') }}" method="POST" style="max-width: 400px;">
+    <div style="margin-bottom: 12px;">
+        <label for="username">Username:</label><br>
+        <input type="text" id="username" name="username" required style="width: 100%; padding: 8px;">
+    </div>
+
+    <div style="margin-bottom: 12px;">
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password" required style="width: 100%; padding: 8px;">
+    </div>
+
+    <button type="submit" style="padding: 10px 20px; background-color: #0066cc; color: white; border: none; cursor: pointer;">
+        Log In
+    </button>
+</form>
+{% endblock %}

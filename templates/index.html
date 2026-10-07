@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Home - BHCAPSI{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-content">
+        <h1>Welcome to BHCAPSI</h1>
+        <p>The organization therefore intends to work collaboratively with community leaders, health facilities, schools, youth groups, women's groups, religious leaders, government agencies, civil society organizations and development partners.</p>
+        <div class="hero-buttons">
+            <a href="{{ url_for('about') }}" class="btn btn-primary">Learn More About Us</a>
+            <a href="{{ url_for('contact') }}" class="btn btn-secondary">Get In Touch</a>
+        </div>
+    </div>
+</section>
+
+<section class="features">
+    <h2>What We Offer</h2>
+    <div class="grid-3">
+        <div class="card">
+            <img src="{{ url_for('static', filename='images/vision.jpg') }}" alt="BHCAPSI Vision" class="card-img">
+            <h3>Our Vision</h3>
+            <p>A healthy and empowered Bichi community where pandemic (HIV) transmission is reduced, people affected by HIV receive appropriate support, and everyone can access accurate information and essential health services without discrimination.</p>
+        </div>
+
+        <div class="card">
+            <img src="{{ url_for('static', filename='images/mission.jpg') }}" alt="BHCAPSI Mission" class="card-img">
+            <h3>Our Mission</h3>
+            <p>To mobilize and empower individuals, families and communities in Bichi LGA through HIV awareness, prevention education, testing and referral, community outreach, psychosocial support and collaboration with health and development partners.</p>
+        </div>
+
+        <div class="card">
+            <img src="{{ url_for('static', filename='images/programmes.jpg') }}" alt="BHCAPSI Core Programmes" class="card-img">
+            <h3>Core Programmes</h3>
+            <p>HIV Awareness and Health Education, HIV Prevention, Care and Support, Community Outreach, Monitoring, Evaluation and Learning and HIV Testing and Linkage.</p>
+        </div>
+    </div>
+</section>
+{% endblock %}

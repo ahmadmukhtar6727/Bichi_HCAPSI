@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Admin - Contact Messages{% endblock %}
+
+{% block content %}
+<section class="admin-header">
+    <h1>Incoming Contact Messages</h1>
+    <p>Logged in as: <strong>{{ current_user.username }}</strong></p>
+</section>
+
+{% if messages %}
+    <div class="messages-list">
+        {% for msg in messages %}
+            <div class="message-card">
+                <div class="message-header">
+                    <h4>{{ msg.subject or "No Subject" }}</h4>
+                    <span class="message-date">{{ msg.created_at.strftime('%Y-%m-%d %H:%M') }}</span>
+                </div>
+                <p><strong>From:</strong> {{ msg.name }} (&lt;a href="mailto:{{ msg.email }}"&gt;{{ msg.email }}&lt;/a&gt;)</p>
+                <div class="message-body">
+                    {{ msg.message }}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <p class="no-data">No contact messages received yet.</p>
+{% endif %}
+{% endblock %}

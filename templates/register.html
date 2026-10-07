@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Register Admin Account{% endblock %}
+
+{% block content %}
+<h2>Register New Admin</h2>
+
+<!-- Display flash feedback messages -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, msg in messages %}
+      <div style="padding: 10px; margin-bottom: 15px; 
+                  background-color: {% if category == 'success' %}#d4edda{% else %}#f8d7da{% endif %}; 
+                  color: {% if category == 'success' %}#155724{% else %}#721c24{% endif %}; border: 1px solid transparent; border-radius: 4px;">
+        {{ msg }}
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+<form action="{{ url_for('register') }}" method="POST" style="max-width: 400px;">
+    <div style="margin-bottom: 12px;">
+        <label for="username">Username:</label><br>
+        <input type="text" id="username" name="username" required style="width: 100%; padding: 8px; box-sizing: border-box;">
+    </div>
+
+    <div style="margin-bottom: 12px;">
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password" required style="width: 100%; padding: 8px; box-sizing: border-box;">
+    </div>
+
+    <div style="margin-bottom: 12px;">
+        <label for="confirm_password">Confirm Password:</label><br>
+        <input type="password" id="confirm_password" name="confirm_password" required style="width: 100%; padding: 8px; box-sizing: border-box;">
+    </div>
+
+    <button type="submit" style="padding: 10px 20px; background-color: #0066cc; color: white; border: none; cursor: pointer;">
+        Register Admin
+    </button>
+</form>
+{% endblock %}
