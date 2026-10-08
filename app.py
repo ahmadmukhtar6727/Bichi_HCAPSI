@@ -1,15 +1,26 @@
+import os
+from datetime import datetime
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
-from datetime import datetime
 
 app = Flask(__name__)
 
-app.config['SECRET_KEY'] = 'your-secret-key-goes-here'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///contact_messages.db'
+# --- App Configurations ---
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'your-secret-key-goes-here')
+
+# Dynamic Database Configuration (Render PostgreSQL in production vs local SQLite fallback)
+db_url = os.environ.get('DATABASE_URL', 'sqlite:///site.db')
+
+# Fix SQLAlchemy 1.4+ compatibility with Render's postgres:// prefix
+if db_url and db_url.startswith("postgres://"):
+    db_url = db_url.replace("postgres://", "postgresql://", 1)
+
+app.config['SQLALCHEMY_DATABASE_URI'] = db_url
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+# Initialize Database Extension
 db = SQLAlchemy(app)
 
 # Flask-Login Setup
@@ -17,7 +28,8 @@ login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 login_manager.login_message_category = 'info'
 
-# User Model
+# --- Database Models ---
+
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
@@ -29,7 +41,6 @@ class User(UserMixin, db.Model):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
-# Contact Message Model
 class ContactMessage(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
@@ -42,7 +53,7 @@ class ContactMessage(db.Model):
 def load_user(user_id):
     return db.session.get(User, int(user_id))
 
-# Initialize Database and Default Admin Account
+# --- Database Initialization & Default Admin Seeding ---
 with app.app_context():
     db.create_all()
     if not User.query.filter_by(username='admin').first():
@@ -165,15 +176,3 @@ def delete_message(id):
 
 if __name__ == "__main__":
     app.run(debug=True)
-
-import os
-
-# Add this right after app = Flask(__name__) in app.py
-print("\n=== FLASK STATIC DIAGNOSTIC ===")
-print("Static Folder:", app.static_folder)
-if os.path.exists(app.static_folder):
-    for root, dirs, files in os.walk(app.static_folder):
-        print(f"Directory: {root} -> Files: {files}")
-else:
-    print("Static folder DOES NOT exist at that path!")
-print("===============================\n")
