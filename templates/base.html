@@ -15,8 +15,6 @@
     <meta property="og:url" content="{{ request.url }}">
     <meta property="og:title" content="BHCAPSI - Bichi LGA HIV/AIDS Initiative">
     <meta property="og:description" content="Promoting HIV/AIDS awareness, confidential counseling, and community health resources across Bichi LGA.">
-    
-    <!-- _external=True converts the relative path into an absolute URL required by WhatsApp -->
     <meta property="og:image" content="{{ url_for('static', filename='images/logo.png', _external=True) }}">
     <meta property="og:image:type" content="image/png">
 
@@ -27,7 +25,7 @@
     <meta name="twitter:description" content="Promoting HIV/AIDS awareness, confidential counseling, and community health resources across Bichi LGA.">
     <meta name="twitter:image" content="{{ url_for('static', filename='images/logo.png', _external=True) }}">
 
-    <!-- Favicon & CSS -->
+    <!-- Favicon & Stylesheet -->
     <link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}" type="image/png">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     {% block extra_css %}{% endblock %}
@@ -64,6 +62,37 @@
             {% endif %}
         {% endwith %}
 
+        <!-- Hero Banner Section -->
+        <section class="hero">
+            <h1>Bichi Local Government Area Action Committee on AIDS</h1>
+            <p>Promoting HIV/AIDS awareness, confidential counseling, and community health resilience across Bichi LGA.</p>
+            <a href="{{ url_for('contact') }}" class="btn btn-primary">Get Confidential Support</a>
+            <a href="{{ url_for('about') }}" class="btn btn-secondary">Learn More</a>
+        </section>
+
+        <!-- Impact Statistics Bar -->
+        <section class="impact-stats">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-number">5,000+</span>
+                    <span class="stat-label">Community Members Reached</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">100%</span>
+                    <span class="stat-label">Confidential & Free Services</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">12+</span>
+                    <span class="stat-label">Supported Health Facilities</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">11</span>
+                    <span class="stat-label">Bichi LGA Wards Covered</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dynamic Page Content Block -->
         {% block content %}{% endblock %}
     </main>
 
