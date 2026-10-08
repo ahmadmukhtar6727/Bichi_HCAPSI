@@ -3,8 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}BHCAPSI{% endblock %}</title>
+    <title>{% block title %}BHCAPSI - Bichi Local Government Health Portal{% endblock %}</title>
+
+    <!-- Primary Meta Tags -->
+    <meta name="title" content="BHCAPSI - Bichi LGA HIV/AIDS Initiative">
+    <meta name="description" content="Promoting HIV/AIDS awareness, confidential counseling, and community health resources across Bichi Local Government Area.">
+
+    <!-- Open Graph / WhatsApp / Facebook Meta Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="BHCAPSI">
+    <meta property="og:url" content="{{ request.url }}">
+    <meta property="og:title" content="BHCAPSI - Bichi LGA HIV/AIDS Initiative">
+    <meta property="og:description" content="Promoting HIV/AIDS awareness, confidential counseling, and community health resources across Bichi LGA.">
+    
+    <!-- _external=True converts the relative path into an absolute URL required by WhatsApp -->
+    <meta property="og:image" content="{{ url_for('static', filename='images/logo.png', _external=True) }}">
+    <meta property="og:image:type" content="image/png">
+
+    <!-- Twitter / X Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="{{ request.url }}">
+    <meta name="twitter:title" content="BHCAPSI - Bichi LGA HIV/AIDS Initiative">
+    <meta name="twitter:description" content="Promoting HIV/AIDS awareness, confidential counseling, and community health resources across Bichi LGA.">
+    <meta name="twitter:image" content="{{ url_for('static', filename='images/logo.png', _external=True) }}">
+
+    <!-- Favicon & CSS -->
+    <link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}" type="image/png">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    {% block extra_css %}{% endblock %}
 </head>
 <body>
     <header class="navbar">
@@ -40,5 +66,13 @@
 
         {% block content %}{% endblock %}
     </main>
+
+    <footer class="site-footer" style="text-align: center; padding: 20px 0; margin-top: 40px; border-top: 1px solid #e0e0e0; font-size: 0.9rem; color: #666;">
+        <div class="container">
+            <p>&copy; BHCAPSI - Bichi Local Government Area Health Initiative. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    {% block extra_js %}{% endblock %}
 </body>
 </html>
