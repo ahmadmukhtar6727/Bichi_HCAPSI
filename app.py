@@ -54,11 +54,14 @@ def load_user(user_id):
     return db.session.get(User, int(user_id))
 
 # --- Database Initialization & Default Admin Seeding ---
+default_admin_username = os.environ.get('ADMIN_USERNAME', 'YOUR_USERNAME')
+default_admin_password = os.environ.get('ADMIN_PASSWORD', 'YOUR_CUSTOM_PASSWORD')
+
 with app.app_context():
     db.create_all()
-    if not User.query.filter_by(username='admin').first():
-        admin = User(username='admin')
-        admin.set_password('admin123')
+    if not User.query.filter_by(username=default_admin_username).first():
+        admin = User(username=default_admin_username)
+        admin.set_password(default_admin_password)
         db.session.add(admin)
         db.session.commit()
 
