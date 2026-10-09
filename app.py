@@ -78,13 +78,24 @@ def about():
 @app.route("/contact", methods=["GET", "POST"])
 def contact():
     if request.method == "POST":
-        name = request.form.get("name")
-        email = request.form.get("email")
-        subject = request.form.get("subject")
-        message_body = request.form.get("message")
+        is_anonymous = request.form.get("is_anonymous") == "on"
+        name = request.form.get("name", "").strip()
+        email = request.form.get("email", "").strip()
+        subject = request.form.get("subject", "").strip()
+        message_body = request.form.get("message", "").strip()
 
-        if not name or not email or not message_body:
-            flash("Please fill in all required fields.", "danger")
+        # Handle anonymous option
+        if is_anonymous:
+            name = "Anonymous Community Member"
+            email = "Not Provided (Anonymous)"
+        else:
+            if not name or not email:
+                flash("Please provide your name and email, or check 'Submit Anonymously'.", "danger")
+                return redirect(url_for("contact"))
+
+        # Subject and message are always required
+        if not subject or not message_body:
+            flash("Please fill in the subject and message fields.", "danger")
             return redirect(url_for("contact"))
 
         new_message = ContactMessage(
@@ -96,7 +107,7 @@ def contact():
         db.session.add(new_message)
         db.session.commit()
         
-        flash("Thank you! Your message has been received.", "success")
+        flash("Thank you! Your confidential message has been received.", "success")
         return redirect(url_for("contact"))
 
     return render_template("contact.html")

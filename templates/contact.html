@@ -1,47 +1,102 @@
 {% extends "base.html" %}
 
-{% block title %}Contact Us - BHCAPSI{% endblock %}
+{% block title %}Contact & Confidential Support - BHCAPSI{% endblock %}
 
 {% block content %}
-<section class="contact-header">
-    <h1>Contact BHCAPSI</h1>
-    <p>Have questions about our programs or want to collaborate? Send us a message.</p>
-</section>
+<section class="container" style="max-width: 800px; margin: 35px auto; padding: 0 15px;">
 
-<div class="contact-container">
-    <!-- Contact Info Sidebar -->
-    <div class="contact-info">
-        <h3>Reach Out Directly</h3>
-        <p><strong>Location:</strong> Bichi LGA, Kano State, Nigeria</p>
-        <p><strong>Email:</strong> info@bhcapsi.org</p>
-        <p><strong>Focus:</strong> HIV Awareness, Prevention, and Community Support</p>
+    <!-- Page Title & Header -->
+    <div style="text-align: center; margin-bottom: 25px;">
+        <h2 style="color: #1a365d; font-size: 2rem; margin-bottom: 8px;">Contact & Confidential Inquiries</h2>
+        <p style="color: #4a5568; font-size: 1rem;">
+            Reach out to the Bichi Local Government Action Committee on AIDS for counseling, health facility referrals, or questions.
+        </p>
     </div>
 
-    <!-- Contact Form -->
-    <div class="contact-form-card">
+    <!-- Confidentiality & Privacy Badge -->
+    <div style="background: #f0fff4; border: 1px solid #9ae6b4; border-left: 6px solid #38a169; border-radius: 8px; padding: 18px 20px; margin-bottom: 30px; display: flex; align-items: flex-start; gap: 15px;">
+        <div style="font-size: 1.8rem; line-height: 1;">🛡️</div>
+        <div>
+            <h4 style="color: #22543d; margin: 0 0 5px 0; font-size: 1.1rem; font-weight: 700;">100% Confidential & Secure Communication</h4>
+            <p style="color: #2f855a; margin: 0; font-size: 0.92rem; line-height: 1.5;">
+                Your privacy and safety are paramount. All messages submitted here are protected and reviewed exclusively by authorized BHCAPSI officers. You may also submit inquiries <strong>completely anonymously</strong> below.
+            </p>
+        </div>
+    </div>
+
+    <!-- Contact Form Card -->
+    <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 30px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+        
         <form action="{{ url_for('contact') }}" method="POST">
-            <div class="form-group">
-                <label for="name">Full Name *</label>
-                <input type="text" id="name" name="name" required class="form-control" placeholder="Your Name">
+            
+            <!-- Anonymous Toggle Switch -->
+            <div style="background: #ebf8ff; border: 1px solid #bee3f8; border-radius: 8px; padding: 14px 18px; margin-bottom: 25px; display: flex; align-items: center; gap: 12px;">
+                <input type="checkbox" id="is_anonymous" name="is_anonymous" onchange="toggleAnonymousMode(this)" style="width: 20px; height: 20px; cursor: pointer; accent-color: #2b6cb0;">
+                <label for="is_anonymous" style="color: #2c5282; font-weight: 600; font-size: 0.98rem; cursor: pointer; margin: 0;">
+                    Submit this message anonymously (Do not collect my name or email)
+                </label>
             </div>
 
-            <div class="form-group">
-                <label for="email">Email Address *</label>
-                <input type="email" id="email" name="email" required class="form-control" placeholder="name@example.com">
+            <!-- Name Field -->
+            <div id="nameGroup" style="margin-bottom: 20px;">
+                <label for="name" style="display: block; color: #2d3748; font-weight: 600; margin-bottom: 6px;">Your Full Name <span style="color: #e53e3e;">*</span></label>
+                <input type="text" id="name" name="name" required placeholder="e.g. Ibrahim Abubakar" style="width: 100%; padding: 12px; border: 1px solid #cbd5e0; border-radius: 6px; font-size: 1rem; outline: none; transition: border-color 0.2s;">
             </div>
 
-            <div class="form-group">
-                <label for="subject">Subject</label>
-                <input type="text" id="subject" name="subject" class="form-control" placeholder="e.g., Program Inquiry, Collaboration">
+            <!-- Email Field -->
+            <div id="emailGroup" style="margin-bottom: 20px;">
+                <label for="email" style="display: block; color: #2d3748; font-weight: 600; margin-bottom: 6px;">Email Address <span style="color: #e53e3e;">*</span></label>
+                <input type="email" id="email" name="email" required placeholder="e.g. ibrahim@example.com" style="width: 100%; padding: 12px; border: 1px solid #cbd5e0; border-radius: 6px; font-size: 1rem; outline: none; transition: border-color 0.2s;">
             </div>
 
-            <div class="form-group">
-                <label for="message">Message *</label>
-                <textarea id="message" name="message" rows="5" required class="form-control" placeholder="Write your message here..."></textarea>
+            <!-- Subject Field -->
+            <div style="margin-bottom: 20px;">
+                <label for="subject" style="display: block; color: #2d3748; font-weight: 600; margin-bottom: 6px;">Subject <span style="color: #e53e3e;">*</span></label>
+                <input type="text" id="subject" name="subject" required placeholder="e.g. Inquiry regarding PMTCT counseling" style="width: 100%; padding: 12px; border: 1px solid #cbd5e0; border-radius: 6px; font-size: 1rem; outline: none;">
             </div>
 
-            <button type="submit" class="btn btn-primary btn-block">Send Message</button>
+            <!-- Message Body -->
+            <div style="margin-bottom: 25px;">
+                <label for="message" style="display: block; color: #2d3748; font-weight: 600; margin-bottom: 6px;">Your Message / Confidential Inquiry <span style="color: #e53e3e;">*</span></label>
+                <textarea id="message" name="message" rows="5" required placeholder="Type your inquiry or message here..." style="width: 100%; padding: 12px; border: 1px solid #cbd5e0; border-radius: 6px; font-size: 1rem; outline: none; resize: vertical;"></textarea>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" style="width: 100%; background: #1a365d; color: #ffffff; font-size: 1.05rem; font-weight: bold; padding: 14px; border: none; border-radius: 6px; cursor: pointer; transition: background 0.2s;">
+                🔒 Send Confidential Message
+            </button>
         </form>
     </div>
-</div>
+
+</section>
+
+<!-- Client-Side Anonymous Toggle Logic -->
+<script>
+function toggleAnonymousMode(checkbox) {
+    const nameInput = document.getElementById('name');
+    const emailInput = document.getElementById('email');
+    const nameGroup = document.getElementById('nameGroup');
+    const emailGroup = document.getElementById('emailGroup');
+
+    if (checkbox.checked) {
+        // Disable required attributes and hide contact fields
+        nameInput.removeAttribute('required');
+        emailInput.removeAttribute('required');
+        nameInput.value = '';
+        emailInput.value = '';
+        nameGroup.style.opacity = '0.4';
+        emailGroup.style.opacity = '0.4';
+        nameInput.disabled = true;
+        emailInput.disabled = true;
+    } else {
+        // Re-enable input fields
+        nameInput.setAttribute('required', 'required');
+        emailInput.setAttribute('required', 'required');
+        nameGroup.style.opacity = '1';
+        emailGroup.style.opacity = '1';
+        nameInput.disabled = false;
+        emailInput.disabled = false;
+    }
+}
+</script>
 {% endblock %}
