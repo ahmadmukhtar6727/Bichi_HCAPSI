@@ -49,20 +49,78 @@ class ContactMessage(db.Model):
     message = db.Column(db.Text, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
+class HealthCenter(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(150), nullable=False)
+    ward = db.Column(db.String(100), nullable=False)
+    address = db.Column(db.String(250), nullable=False)
+    services = db.Column(db.String(250), nullable=False)
+    phone = db.Column(db.String(50), nullable=True)
+    hours = db.Column(db.String(100), default="24/7 Service")
+
 @login_manager.user_loader
 def load_user(user_id):
     return db.session.get(User, int(user_id))
 
-# --- Database Initialization & Default Admin Seeding ---
+# --- Database Initialization & Default Admin / Center Seeding ---
 default_admin_username = os.environ.get('ADMIN_USERNAME', 'BHCAPSI')
 default_admin_password = os.environ.get('ADMIN_PASSWORD', 'Bichi@123')
 
 with app.app_context():
     db.create_all()
+    
+    # Seed default admin if missing
     if not User.query.filter_by(username=default_admin_username).first():
         admin = User(username=default_admin_username)
         admin.set_password(default_admin_password)
         db.session.add(admin)
+        db.session.commit()
+
+    # Seed initial health centers if empty
+    if not HealthCenter.query.first():
+        initial_centers = [
+            HealthCenter(
+                name="Bichi General Hospital",
+                ward="Bichi Ward",
+                address="Kano-Katsina Road, Bichi Town",
+                services="Comprehensive ART, HTS, PMTCT, Viral Load Testing, STI Treatment",
+                phone="+234 800 000 0001",
+                hours="24/7 Emergency & Clinic"
+            ),
+            HealthCenter(
+                name="Badume Primary Health Care Center",
+                ward="Badume Ward",
+                address="Badume Central Road, near Market Square",
+                services="HIV Testing & Counseling (HTS), PMTCT, Counseling, First Aid",
+                phone="+234 800 000 0002",
+                hours="8:00 AM - 4:00 PM (Daily)"
+            ),
+            HealthCenter(
+                name="Danzabuwa Comprehensive Health Center",
+                ward="Danzabuwa Ward",
+                address="Danzabuwa Main Expressway",
+                services="HTS, ART Refill Station, Maternal & Child Health, PMTCT",
+                phone="+234 800 000 0003",
+                hours="24/7 Service"
+            ),
+            HealthCenter(
+                name="Fagwalawa Primary Health Post",
+                ward="Fagwalawa Ward",
+                address="Fagwalawa Central",
+                services="Confidential HIV Counseling, Screening, TB/HIV Co-infection Clinic",
+                phone="+234 800 000 0004",
+                hours="8:00 AM - 4:00 PM (Mon-Fri)"
+            ),
+            HealthCenter(
+                name="Saye Model Primary Health Care",
+                ward="Saye Ward",
+                address="Saye Town Center",
+                services="HTS, PMTCT, Family Planning, Community Referral",
+                phone="+234 800 000 0005",
+                hours="24/7 Service"
+            ),
+        ]
+        db.session.add_all(initial_centers)
         db.session.commit()
 
 # --- Public Routes ---
@@ -112,8 +170,6 @@ def contact():
 
     return render_template("contact.html")
 
-# --- Educational Resources & FAQ Route ---
-
 @app.route("/resources")
 def resources():
     faqs = [
@@ -140,6 +196,11 @@ def resources():
     ]
     return render_template("resources.html", faqs=faqs)
 
+@app.route("/centers")
+def centers():
+    all_centers = HealthCenter.query.order_by(HealthCenter.ward, HealthCenter.name).all()
+    return render_template("centers.html", centers=all_centers)
+
 # --- Authentication Routes ---
 
 @app.route("/login", methods=["GET", "POST"])
@@ -162,8 +223,6 @@ def login():
 
     return render_template("login.html")
 
-# --- Password Change Route ---
-
 @app.route("/change-password", methods=["GET", "POST"])
 @login_required
 def change_password():
@@ -172,22 +231,18 @@ def change_password():
         new_password = request.form.get("new_password")
         confirm_password = request.form.get("confirm_password")
 
-        # 1. Validate required fields
         if not current_password or not new_password or not confirm_password:
             flash("All password fields are required.", "danger")
             return redirect(url_for("change_password"))
 
-        # 2. Verify current password matches existing hash
         if not current_user.check_password(current_password):
             flash("Incorrect current password. Please try again.", "danger")
             return redirect(url_for("change_password"))
 
-        # 3. Ensure new passwords match
         if new_password != confirm_password:
             flash("New passwords do not match.", "danger")
             return redirect(url_for("change_password"))
 
-        # 4. Hash and save new password
         current_user.set_password(new_password)
         db.session.commit()
 
@@ -250,6 +305,71 @@ def delete_message(id):
     db.session.commit()
     flash("Message deleted successfully.", "success")
     return redirect(url_for("view_messages"))
+
+# --- Protected Admin Health Center CRUD Routes ---
+
+@app.route("/admin/centers", methods=["GET"])
+@login_required
+def admin_centers():
+    centers = HealthCenter.query.order_by(HealthCenter.ward, HealthCenter.name).all()
+    edit_id = request.args.get('edit', type=int)
+    center_to_edit = HealthCenter.query.get(edit_id) if edit_id else None
+    return render_template("admin_centers.html", centers=centers, center_to_edit=center_to_edit)
+
+@app.route("/admin/centers/add", methods=["POST"])
+@login_required
+def add_center():
+    name = request.form.get("name", "").strip()
+    ward = request.form.get("ward", "").strip()
+    address = request.form.get("address", "").strip()
+    services = request.form.get("services", "").strip()
+    phone = request.form.get("phone", "").strip()
+    hours = request.form.get("hours", "").strip() or "24/7 Service"
+
+    if not name or not ward or not address or not services:
+        flash("Facility Name, Ward, Address, and Services are required.", "danger")
+        return redirect(url_for("admin_centers"))
+
+    new_center = HealthCenter(
+        name=name,
+        ward=ward,
+        address=address,
+        services=services,
+        phone=phone,
+        hours=hours
+    )
+    db.session.add(new_center)
+    db.session.commit()
+    flash(f"Health center '{name}' added successfully!", "success")
+    return redirect(url_for("admin_centers"))
+
+@app.route("/admin/centers/edit/<int:id>", methods=["POST"])
+@login_required
+def edit_center(id):
+    center = HealthCenter.query.get_or_404(id)
+    center.name = request.form.get("name", "").strip()
+    center.ward = request.form.get("ward", "").strip()
+    center.address = request.form.get("address", "").strip()
+    center.services = request.form.get("services", "").strip()
+    center.phone = request.form.get("phone", "").strip()
+    center.hours = request.form.get("hours", "").strip() or "24/7 Service"
+
+    if not center.name or not center.ward or not center.address or not center.services:
+        flash("Facility Name, Ward, Address, and Services are required.", "danger")
+        return redirect(url_for("admin_centers", edit=id))
+
+    db.session.commit()
+    flash(f"Health center '{center.name}' updated successfully!", "success")
+    return redirect(url_for("admin_centers"))
+
+@app.route("/admin/centers/delete/<int:id>", methods=["POST"])
+@login_required
+def delete_center(id):
+    center = HealthCenter.query.get_or_404(id)
+    db.session.delete(center)
+    db.session.commit()
+    flash(f"Health center '{center.name}' deleted successfully.", "success")
+    return redirect(url_for("admin_centers"))
 
 if __name__ == "__main__":
     app.run(debug=True)
