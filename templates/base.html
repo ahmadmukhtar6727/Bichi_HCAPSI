@@ -44,11 +44,11 @@
             <a href="{{ url_for('about') }}">About Us</a>
             <a href="{{ url_for('contact') }}">Contact Us</a>
             {% if current_user is defined and current_user.is_authenticated %}
-                <a href="{{ url_for('view_messages') }}">Admin Messages</a>
+                <a href="{{ url_for('register') }}">Register New Member</a>
+		<a href="{{ url_for('view_messages') }}">Admin Messages</a>
                 <a href="{{ url_for('logout') }}">Logout ({{ current_user.username }})</a>
             {% else %}
                 <a href="{{ url_for('login') }}">Login</a>
-                <a href="{{ url_for('register') }}">Register</a>
             {% endif %}
         </nav>
     </header>
