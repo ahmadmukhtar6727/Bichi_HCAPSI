@@ -54,8 +54,8 @@ def load_user(user_id):
     return db.session.get(User, int(user_id))
 
 # --- Database Initialization & Default Admin Seeding ---
-default_admin_username = os.environ.get('ADMIN_USERNAME', 'YOUR_USERNAME')
-default_admin_password = os.environ.get('ADMIN_PASSWORD', 'YOUR_CUSTOM_PASSWORD')
+default_admin_username = os.environ.get('ADMIN_USERNAME', 'BHCAPSI')
+default_admin_password = os.environ.get('ADMIN_PASSWORD', 'Bichi@123')
 
 with app.app_context():
     db.create_all()
@@ -124,6 +124,7 @@ def login():
     return render_template("login.html")
 
 @app.route("/register", methods=["GET", "POST"])
+@login_required
 def register():
     if request.method == "POST":
         username = request.form.get("username", "").strip()
@@ -148,8 +149,8 @@ def register():
         db.session.add(new_admin)
         db.session.commit()
 
-        flash(f"Account for '{username}' created successfully! You can now log in.", "success")
-        return redirect(url_for("login"))
+        flash(f"Account for '{username}' created successfully!", "success")
+        return redirect(url_for("view_messages"))
 
     return render_template("register.html")
 
