@@ -162,6 +162,40 @@ def login():
 
     return render_template("login.html")
 
+# --- Password Change Route ---
+
+@app.route("/change-password", methods=["GET", "POST"])
+@login_required
+def change_password():
+    if request.method == "POST":
+        current_password = request.form.get("current_password")
+        new_password = request.form.get("new_password")
+        confirm_password = request.form.get("confirm_password")
+
+        # 1. Validate required fields
+        if not current_password or not new_password or not confirm_password:
+            flash("All password fields are required.", "danger")
+            return redirect(url_for("change_password"))
+
+        # 2. Verify current password matches existing hash
+        if not current_user.check_password(current_password):
+            flash("Incorrect current password. Please try again.", "danger")
+            return redirect(url_for("change_password"))
+
+        # 3. Ensure new passwords match
+        if new_password != confirm_password:
+            flash("New passwords do not match.", "danger")
+            return redirect(url_for("change_password"))
+
+        # 4. Hash and save new password
+        current_user.set_password(new_password)
+        db.session.commit()
+
+        flash("Your password has been updated successfully!", "success")
+        return redirect(url_for("view_messages"))
+
+    return render_template("change_password.html")
+
 @app.route("/register", methods=["GET", "POST"])
 @login_required
 def register():
