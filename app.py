@@ -101,6 +101,34 @@ def contact():
 
     return render_template("contact.html")
 
+# --- Educational Resources & FAQ Route ---
+
+@app.route("/resources")
+def resources():
+    faqs = [
+        {
+            "question": "What HIV services are available in Bichi LGA?",
+            "answer": "BHCAPSI supports free HIV Testing & Counseling (HTS), Prevention of Mother-to-Child Transmission (PMTCT), ART medication refills, STI screening, and confidential counseling across supported primary health facilities in Bichi LGA."
+        },
+        {
+            "question": "Are HIV testing and counseling really free and confidential?",
+            "answer": "Yes. All testing and counseling services at supported centers are 100% free of charge. Patient records and test results are kept strictly confidential under national medical privacy guidelines."
+        },
+        {
+            "question": "What does PMTCT mean for pregnant women?",
+            "answer": "PMTCT (Prevention of Mother-to-Child Transmission) ensures that pregnant mothers living with HIV receive anti-retroviral treatment (ART). When taken consistently, treatment reduces the risk of transmitting HIV to the baby to less than 1% during pregnancy, delivery, and breastfeeding."
+        },
+        {
+            "question": "What does Undetectable = Untransmittable (U=U) mean?",
+            "answer": "When a person living with HIV takes prescribed ART daily, the amount of virus in their blood drops to undetectable levels. Research shows that individuals with an undetectable viral load cannot transmit HIV through sexual contact."
+        },
+        {
+            "question": "Where can I receive counseling or ART refills in Bichi?",
+            "answer": "You can visit any of our listed facilities in the Health Center Directory, such as Bichi General Hospital, Badume PHC, Danzabuwa Comprehensive Health Center, or Saye Model PHC."
+        }
+    ]
+    return render_template("resources.html", faqs=faqs)
+
 # --- Authentication Routes ---
 
 @app.route("/login", methods=["GET", "POST"])

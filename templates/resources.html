@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+
+{% block title %}Educational Resources & FAQ - BHCAPSI{% endblock %}
+
+{% block content %}
+<section class="container" style="max-width: 1000px; margin: 30px auto; padding: 0 15px;">
+    
+    <!-- Hero Header -->
+    <div style="text-align: center; margin-bottom: 35px;">
+        <h2 style="color: #1a365d; font-size: 2.2rem; margin-bottom: 10px;">HIV/AIDS Education & FAQ</h2>
+        <p style="color: #4a5568; max-width: 720px; margin: 0 auto; font-size: 1.05rem; line-height: 1.6;">
+            Empowering the Bichi community with accurate health facts, treatment knowledge, and guidance on confidential counseling and care.
+        </p>
+    </div>
+
+    <!-- Quick Info Banner: Core Facts -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 40px;">
+        <div style="background: #ffffff; border-left: 5px solid #2b6cb0; border-radius: 8px; padding: 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.06);">
+            <h3 style="color: #2b6cb0; margin-bottom: 8px;">🧪 Early Testing</h3>
+            <p style="color: #4a5568; font-size: 0.95rem; line-height: 1.5;">
+                Knowing your HIV status is the first step to living a healthy, full life. Rapid testing is quick, painless, and confidential.
+            </p>
+        </div>
+
+        <div style="background: #ffffff; border-left: 5px solid #276749; border-radius: 8px; padding: 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.06);">
+            <h3 style="color: #276749; margin-bottom: 8px;">💊 Treatment Works (U=U)</h3>
+            <p style="color: #4a5568; font-size: 0.95rem; line-height: 1.5;">
+                Daily adherence to Anti-Retroviral Therapy (ART) suppresses the virus to undetectable levels, protecting your health and preventing transmission.
+            </p>
+        </div>
+
+        <div style="background: #ffffff; border-left: 5px solid #c53030; border-radius: 8px; padding: 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.06);">
+            <h3 style="color: #c53030; margin-bottom: 8px;">👶 Healthy Infants (PMTCT)</h3>
+            <p style="color: #4a5568; font-size: 0.95rem; line-height: 1.5;">
+                Mother-to-child transmission is preventable. Pregnant women receiving early antenatal ART give birth to HIV-negative babies.
+            </p>
+        </div>
+    </div>
+
+    <!-- Section: Myths vs. Facts Table -->
+    <div style="background: #ffffff; border-radius: 10px; padding: 25px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 45px;">
+        <h3 style="color: #1a365d; margin-bottom: 20px; text-align: center;">Common Myths vs. Medical Facts</h3>
+        
+        <div style="overflow-x: auto;">
+            <table style="width: 100%; border-collapse: collapse; text-align: left;">
+                <thead>
+                    <tr style="background-color: #ebf8ff; color: #2c5282; border-bottom: 2px solid #cbd5e0;">
+                        <th style="padding: 12px 15px; width: 45%;">Common Myth ❌</th>
+                        <th style="padding: 12px 15px; width: 55%;">Medical Fact ✔️</th>
+                    </tr>
+                </thead>
+                <tbody style="color: #2d3748; font-size: 0.95rem;">
+                    <tr style="border-bottom: 1px solid #e2e8f0;">
+                        <td style="padding: 12px 15px; color: #9b2c2c; font-weight: 500;">HIV can be spread by sharing food, handshakes, or hugging.</td>
+                        <td style="padding: 12px 15px; color: #22543d;">HIV is <strong>not</strong> transmitted through casual contact, saliva, sweat, tears, or sharing utensils.</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e2e8f0;">
+                        <td style="padding: 12px 15px; color: #9b2c2c; font-weight: 500;">An HIV diagnosis is a life sentence.</td>
+                        <td style="padding: 12px 15px; color: #22543d;">With modern ART medications, individuals with HIV live long, active, and healthy lives.</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e2e8f0;">
+                        <td style="padding: 12px 15px; color: #9b2c2c; font-weight: 500;">An HIV-positive mother will always pass the virus to her baby.</td>
+                        <td style="padding: 12px 15px; color: #22543d;">With effective PMTCT interventions during pregnancy, transmission risk drops to under 1%.</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px 15px; color: #9b2c2c; font-weight: 500;">You can tell if someone has HIV just by looking at them.</td>
+                        <td style="padding: 12px 15px; color: #22543d;">Most people living with HIV look completely healthy. A blood test is the only way to confirm status.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Video Explainer Section -->
+    <div style="margin-bottom: 45px;">
+        <h3 style="color: #1a365d; margin-bottom: 15px; text-align: center;">Educational Video Guides</h3>
+        <p style="text-align: center; color: #4a5568; margin-bottom: 20px; font-size: 0.95rem;">
+            Watch these short video explainers on HIV transmission, PMTCT maternal health, and viral load suppression.
+        </p>
+        <Carousel>
+            <Video source="youtube" query="HIV awareness transmission prevention counseling explainers" count="3"/>
+        </Carousel>
+    </div>
+
+    <!-- Section: Accordion FAQ -->
+    <div style="background: #ffffff; border-radius: 10px; padding: 25px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 30px;">
+        <h3 style="color: #1a365d; margin-bottom: 20px; text-align: center;">Frequently Asked Questions</h3>
+
+        <div style="display: flex; flex-direction: column; gap: 15px;">
+            {% for faq in faqs %}
+            <div style="border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden;">
+                <button onclick="toggleFaq(this)" style="width: 100%; text-align: left; background: #f7fafc; padding: 16px 20px; font-size: 1.05rem; font-weight: 600; color: #2d3748; border: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: background 0.2s;">
+                    <span>{{ faq.question }}</span>
+                    <span class="faq-icon" style="font-size: 1.2rem; color: #2b6cb0;">+</span>
+                </button>
+                <div class="faq-answer" style="display: none; padding: 18px 20px; background: #ffffff; border-top: 1px solid #edf2f7; color: #4a5568; line-height: 1.6; font-size: 0.98rem;">
+                    {{ faq.answer }}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Call to Action Banner -->
+    <div style="background: linear-gradient(135deg, #1a365d, #2b6cb0); color: #ffffff; text-align: center; padding: 30px 20px; border-radius: 10px; margin-top: 30px;">
+        <h3 style="margin-bottom: 10px; font-size: 1.5rem;">Have questions or need confidential support?</h3>
+        <p style="margin-bottom: 20px; opacity: 0.9;">Reach out through our secure channel or visit a local facility in Bichi LGA.</p>
+        <a href="{{ url_for('contact') }}" style="background: #ffffff; color: #1a365d; font-weight: bold; padding: 12px 25px; border-radius: 6px; text-decoration: none; display: inline-block;">Contact Us Confidentially</a>
+    </div>
+
+</section>
+
+<!-- Accordion Toggle JavaScript -->
+<script>
+function toggleFaq(button) {
+    const answer = button.nextElementSibling;
+    const icon = button.querySelector('.faq-icon');
+    const isVisible = answer.style.display === "block";
+
+    // Close all open answers
+    document.querySelectorAll('.faq-answer').forEach(el => el.style.display = 'none');
+    document.querySelectorAll('.faq-icon').forEach(el => el.textContent = '+');
+
+    // Toggle current selection
+    if (!isVisible) {
+        answer.style.display = "block";
+        icon.textContent = "−";
+    }
+}
+</script>
+{% endblock %}
