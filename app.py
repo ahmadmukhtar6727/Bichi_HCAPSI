@@ -1,6 +1,8 @@
 import os
+import csv
+import io
 from datetime import datetime
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, Response
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -370,6 +372,32 @@ def delete_center(id):
     db.session.commit()
     flash(f"Health center '{center.name}' deleted successfully.", "success")
     return redirect(url_for("admin_centers"))
+
+# --- CSV Export Route ---
+
+@app.route("/admin/messages/export/csv")
+@login_required
+def export_messages_csv():
+    messages = ContactMessage.query.order_by(ContactMessage.created_at.desc()).all()
+    output = io.StringIO()
+    writer = csv.writer(output)
+    writer.writerow(["ID", "Date (UTC)", "Name", "Email", "Subject", "Message"])
+    for msg in messages:
+        writer.writerow([
+            msg.id,
+            msg.created_at.strftime("%Y-%m-%d %H:%M:%S") if msg.created_at else "",
+            msg.name,
+            msg.email,
+            msg.subject,
+            msg.message
+        ])
+    output.seek(0)
+    filename = f"bhcapsi_contact_messages_{datetime.utcnow().strftime('%Y%m%d')}.csv"
+    return Response(
+        output.getvalue(),
+        mimetype="text/csv",
+        headers={"Content-Disposition": f"attachment; filename={filename}"}
+    )
 
 if __name__ == "__main__":
     app.run(debug=True)
