@@ -3,111 +3,149 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}BHCAPSI - Bichi Local Government Health Portal{% endblock %}</title>
-
-    <!-- Primary Meta Tags -->
-    <meta name="title" content="BHCAPSI - Bichi LGA HIV/AIDS Initiative">
-    <meta name="description" content="Promoting HIV/AIDS awareness, confidential counseling, and community health resources across Bichi Local Government Area.">
-
-    <!-- Open Graph / WhatsApp / Facebook Meta Tags -->
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="BHCAPSI">
-    <meta property="og:url" content="{{ request.url }}">
-    <meta property="og:title" content="BHCAPSI - Bichi LGA HIV/AIDS Initiative">
-    <meta property="og:description" content="Promoting HIV/AIDS awareness, confidential counseling, and community health resources across Bichi LGA.">
-    <meta property="og:image" content="{{ url_for('static', filename='images/logo.png', _external=True) }}">
-    <meta property="og:image:type" content="image/png">
-
-    <!-- Twitter / X Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="{{ request.url }}">
-    <meta name="twitter:title" content="BHCAPSI - Bichi LGA HIV/AIDS Initiative">
-    <meta name="twitter:description" content="Promoting HIV/AIDS awareness, confidential counseling, and community health resources across Bichi LGA.">
-    <meta name="twitter:image" content="{{ url_for('static', filename='images/logo.png', _external=True) }}">
-
-    <!-- Favicon & Stylesheet -->
-    <link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}" type="image/png">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?v=2">
-    {% block extra_css %}{% endblock %}
+    <title>{% block title %}Bichi Healthier Community Initiative (BHCAPSI){% endblock %}</title>
+    
+    <!-- CSS Styles -->
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f7fafc;
+            color: #2d3748;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header {
+            background-color: #1a365d;
+            color: #ffffff;
+            padding: 15px 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .header-container {
+            max-width: 1150px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .brand-logo {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #ffffff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        nav.nav-links {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        nav.nav-links a {
+            color: #e2e8f0;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        nav.nav-links a:hover {
+            color: #3182ce;
+        }
+        .main-content {
+            flex: 1;
+        }
+        .flash-messages {
+            max-width: 1100px;
+            margin: 20px auto 0 auto;
+            padding: 0 15px;
+        }
+        .alert {
+            padding: 12px 18px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+        .alert-success {
+            background-color: #f0fff4;
+            color: #22543d;
+            border: 1px solid #9ae6b4;
+        }
+        .alert-danger {
+            background-color: #fff5f5;
+            color: #9b2c2c;
+            border: 1px solid #feb2b2;
+        }
+        .alert-info {
+            background-color: #ebf8ff;
+            color: #2c5282;
+            border: 1px solid #bee3f8;
+        }
+    </style>
 </head>
 <body>
-    <header class="navbar">
-        <!-- Logo & Organization Name (Top Left) -->
-        <a href="{{ url_for('home') }}" class="brand-logo">
-            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="BHCAPSI Logo"> 
-            <span class="brand-name">BHCAPSI</span>
-        </a>
 
-        <!-- Navigation Links (Top Right) -->
-        <nav class="nav-links">
-            <a href="{{ url_for('home') }}">Home</a>
-            <a href="{{ url_for('about') }}">About Us</a>
-	    <a href="{{ url_for('programs') }}">Our Programs</a>
-	    <a href="{{ url_for('centers') }}">Health Centers</a>
-	    <a href="{{ url_for('resources') }}">Health Resources & FAQ</a>
-	    <a href="{{ url_for('get_involved') }}">Get Involved</a>
-            <a href="{{ url_for('contact') }}">Contact Us</a>
-            {% if current_user is defined and current_user.is_authenticated %}
-		<a href="{{ url_for('admin_centers') }}">Manage Centers</a>
-                <a href="{{ url_for('register') }}">Register New Member</a>
-		<a href="{{ url_for('view_messages') }}">Admin Messages</a>
-		<a href="{{ url_for('change_password') }}">Change Password</a>
-                <a href="{{ url_for('logout') }}">Logout ({{ current_user.username }})</a>
-            {% else %}
-                <a href="{{ url_for('login') }}">Login</a>
-            {% endif %}
-        </nav>
+    <!-- Header & Main Navigation -->
+    <header>
+        <div class="header-container">
+            <a href="{{ url_for('home') }}" class="brand-logo">
+                🏥 <span>BHCAPSI</span>
+            </a>
+            <nav class="nav-links">
+                <a href="{{ url_for('home') }}">Home</a>
+                <a href="{{ url_for('about') }}">About Us</a>
+                <a href="{{ url_for('programs') }}">Our Programs</a>
+                <a href="{{ url_for('projects') }}" style="color: #63b3ed; font-weight: 600;">Projects & Outreach</a>
+                <a href="{{ url_for('centers') }}">Health Centers</a>
+                <a href="{{ url_for('resources') }}">Health Resources</a>
+                <a href="{{ url_for('get_involved') }}">Get Involved</a>
+                <a href="{{ url_for('contact') }}">Contact Us</a>
+                
+                {% if current_user is defined and current_user.is_authenticated %}
+                    <a href="{{ url_for('admin_centers') }}" style="color: #f6ad55; font-weight: bold;">Manage Centers</a>
+                    <a href="{{ url_for('view_messages') }}" style="color: #f6ad55; font-weight: bold;">Admin Messages</a>
+                    <a href="{{ url_for('change_password') }}">Change Password</a>
+                    <a href="{{ url_for('logout') }}" style="color: #e53e3e;">Logout</a>
+                {% else %}
+                    <a href="{{ url_for('login') }}" style="background: #2b6cb0; padding: 6px 12px; border-radius: 4px; color: #fff;">Login</a>
+                {% endif %}
+            </nav>
+        </div>
     </header>
 
-    <main>
+    <!-- Flash Notifications Container -->
+    <div class="flash-messages">
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
                 {% for category, message in messages %}
-                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                    <div class="alert alert-{{ category }}">
+                        {{ message }}
+                    </div>
                 {% endfor %}
             {% endif %}
         {% endwith %}
+    </div>
 
-        <!-- Hero Banner Section -->
-        <section class="hero">
-            <h1>Bichi Local Government Area Action Committee on AIDS</h1>
-            <p>Promoting HIV/AIDS awareness, confidential counseling, and community health resilience across Bichi LGA.</p>
-            <a href="{{ url_for('contact') }}" class="btn btn-primary">Get Confidential Support</a>
-            <a href="{{ url_for('about') }}" class="btn btn-secondary">Learn More</a>
-        </section>
-
-        <!-- Impact Statistics Bar -->
-        <section class="impact-stats">
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <span class="stat-number">5,000+</span>
-                    <span class="stat-label">Community Members Reached</span>
-                </div>
-                <div class="stat-card">
-                    <span class="stat-number">100%</span>
-                    <span class="stat-label">Confidential & Free Services</span>
-                </div>
-                <div class="stat-card">
-                    <span class="stat-number">50</span>
-                    <span class="stat-label">Supported Health Facilities</span>
-                </div>
-                <div class="stat-card">
-                    <span class="stat-number">11</span>
-                    <span class="stat-label">Bichi LGA Wards Covered</span>
-                </div>
-            </div>
-        </section>
-
-        <!-- Dynamic Page Content Block -->
+    <!-- Main Dynamic Body Content -->
+    <main class="main-content">
         {% block content %}{% endblock %}
     </main>
 
-    <footer class="site-footer" style="text-align: center; padding: 20px 0; margin-top: 40px; border-top: 1px solid #e0e0e0; font-size: 0.9rem; color: #666;">
-        <div class="container">
-            <p>&copy; BHCAPSI - Bichi Local Government Area Health Initiative. All Rights Reserved.</p>
+    <!-- Footer with Privacy Policy & Contact Links -->
+    <footer style="background: #1a365d; color: #ffffff; text-align: center; padding: 25px 15px; margin-top: 50px; font-size: 0.9rem;">
+        <p style="margin: 0 0 10px 0;">&copy; 2026 Bichi Healthier Community, Awareness, Prevention & Support Initiative (BHCAPSI). All rights reserved.</p>
+        <div>
+            <a href="{{ url_for('privacy_policy') }}" style="color: #cbd5e0; text-decoration: underline; margin: 0 10px;">Privacy Policy & NDPA Compliance</a> |
+            <a href="{{ url_for('contact') }}" style="color: #cbd5e0; text-decoration: underline; margin: 0 10px;">Contact Support</a>
         </div>
     </footer>
 
-    {% block extra_js %}{% endblock %}
 </body>
 </html>
