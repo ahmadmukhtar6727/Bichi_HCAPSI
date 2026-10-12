@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 
-{% block title %}Health Centers Directory - BHCAPSI{% endblock %}
+{% block title %}Health Centers & Annex Directory - BHCAPSI{% endblock %}
 
 {% block content %}
 <!-- Header Banner -->
 <section style="background: linear-gradient(135deg, #1a365d 0%, #2b6cb0 100%); color: #ffffff; padding: 50px 20px; text-align: center;">
     <div style="max-width: 900px; margin: 0 auto;">
-        <h1 style="font-size: 2.2rem; margin: 0 0 10px 0;">Primary Health Care Centers</h1>
+        <h1 style="font-size: 2.2rem; margin: 0 0 10px 0;">Health Centers & Annex Directory</h1>
         <p style="font-size: 1.1rem; opacity: 0.9; margin: 0;">
-            Find verified health facilities across Bichi Local Government Area offering HIV testing, PMTCT counseling, and general care.
+            Directory of primary health centers, specialized clinics, and ward annex facilities across Bichi Local Government Area.
         </p>
     </div>
 </section>
@@ -16,54 +16,56 @@
 <section class="container" style="max-width: 1100px; margin: 40px auto; padding: 0 15px;">
 
     <!-- Verification Safeguard Banner -->
-    <div style="background: #ebf8ff; border: 1px solid #bee3f8; border-left: 5px solid #3182ce; padding: 15px 20px; border-radius: 8px; margin-bottom: 30px; color: #2b6cb0; font-size: 0.92rem;">
-        <strong>ℹ️ Official Notice:</strong> Service hours, contacts, and facility locations are updated directly by authorized BHCAPSI administrators.
+    <div style="background: #ebf8ff; border: 1px solid #bee3f8; border-left: 5px solid #3182ce; padding: 15px 20px; border-radius: 8px; margin-bottom: 35px; color: #2b6cb0; font-size: 0.92rem; line-height: 1.5;">
+        <strong>ℹ️ Official Directory:</strong> Service hours, contact details, and ward annex facilities are updated directly by authorized BHCAPSI administrators to ensure reliable community referrals.
     </div>
 
-    <!-- Health Center Cards List -->
+    <!-- Health Center Cards Grid -->
     {% if centers %}
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px;">
             {% for center in centers %}
-            <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 25px; box-shadow: 0 2px 6px rgba(0,0,0,0.04);">
-                <span style="background: #e2e8f0; color: #2d3748; font-size: 0.8rem; font-weight: bold; padding: 3px 10px; border-radius: 12px; text-transform: uppercase;">
-                    {{ center.ward if center.ward else 'Bichi LGA' }}
-                </span>
-                <h3 style="color: #1a365d; margin: 12px 0 8px 0; font-size: 1.3rem;">{{ center.name }}</h3>
-                <p style="color: #4a5568; font-size: 0.95rem; margin-bottom: 15px;">
-                    📍 <strong>Location:</strong> {{ center.location }}
-                </p>
-                <div style="background: #f7fafc; padding: 12px; border-radius: 6px; font-size: 0.9rem; color: #718096; line-height: 1.6; margin-bottom: 15px;">
-                    <div>🕒 <strong>Hours:</strong> {{ center.operating_hours if center.operating_hours else '8:00 AM - 4:00 PM' }}</div>
-                    <div>📞 <strong>Contact:</strong> {{ center.contact_person if center.contact_person else 'Facility Desk' }}</div>
-                    <div>🛠️ <strong>Services:</strong> {{ center.services_offered if center.services_offered else 'HTS, PMTCT, General Care' }}</div>
+            <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 25px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                        <span style="background: #edf2f7; color: #2b6cb0; font-size: 0.8rem; font-weight: bold; padding: 4px 12px; border-radius: 12px; text-transform: uppercase;">
+                            📍 {{ center.ward }}
+                        </span>
+                        {% if 'Annex' in center.name or 'Post' in center.name %}
+                        <span style="background: #feebc8; color: #744210; font-size: 0.75rem; font-weight: bold; padding: 3px 8px; border-radius: 10px;">
+                            Ward Annex
+                        </span>
+                        {% else %}
+                        <span style="background: #c6f6d5; color: #22543d; font-size: 0.75rem; font-weight: bold; padding: 3px 8px; border-radius: 10px;">
+                            Main Facility
+                        </span>
+                        {% endif %}
+                    </div>
+                    
+                    <h3 style="color: #1a365d; margin: 0 0 8px 0; font-size: 1.25rem;">{{ center.name }}</h3>
+                    <p style="color: #4a5568; font-size: 0.92rem; margin-bottom: 15px;">
+                        <strong>Address:</strong> {{ center.address }}
+                    </p>
+
+                    <div style="background: #f7fafc; padding: 12px; border-radius: 6px; font-size: 0.9rem; color: #4a5568; line-height: 1.6; margin-bottom: 15px;">
+                        <div>🛠️ <strong>Services:</strong> {{ center.services }}</div>
+                        <div style="margin-top: 6px;">🕒 <strong>Hours:</strong> {{ center.hours }}</div>
+                        {% if center.phone %}
+                        <div style="margin-top: 6px;">📞 <strong>Contact:</strong> {{ center.phone }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div style="border-top: 1px solid #edf2f7; padding-top: 12px; text-align: right;">
+                    <a href="{{ url_for('contact') }}" style="color: #2b6cb0; text-decoration: none; font-size: 0.88rem; font-weight: 600;">
+                        Inquire about referral →
+                    </a>
                 </div>
             </div>
             {% endfor %}
         </div>
     {% else %}
-        <!-- Default Health Facilities Placeholder -->
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px;">
-            
-            <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 25px; box-shadow: 0 2px 6px rgba(0,0,0,0.04);">
-                <span style="background: #e2e8f0; color: #2d3748; font-size: 0.8rem; font-weight: bold; padding: 3px 10px; border-radius: 12px;">Bichi Central Ward</span>
-                <h3 style="color: #1a365d; margin: 12px 0 8px 0; font-size: 1.3rem;">Bichi General Hospital</h3>
-                <p style="color: #4a5568; font-size: 0.95rem; margin-bottom: 12px;">📍 <strong>Location:</strong> Bichi Town, Kano State</p>
-                <div style="background: #f7fafc; padding: 12px; border-radius: 6px; font-size: 0.9rem; color: #718096; line-height: 1.6;">
-                    <div>🕒 <strong>Hours:</strong> 24/7 Emergency & Outpatient</div>
-                    <div>🛠️ <strong>Services:</strong> Comprehensive ART, HTS, PMTCT, NCD Care</div>
-                </div>
-            </div>
-
-            <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 25px; box-shadow: 0 2px 6px rgba(0,0,0,0.04);">
-                <span style="background: #e2e8f0; color: #2d3748; font-size: 0.8rem; font-weight: bold; padding: 3px 10px; border-radius: 12px;">Saye Ward</span>
-                <h3 style="color: #1a365d; margin: 12px 0 8px 0; font-size: 1.3rem;">Saye Primary Health Center</h3>
-                <p style="color: #4a5568; font-size: 0.95rem; margin-bottom: 12px;">📍 <strong>Location:</strong> Saye Community, Bichi LGA</p>
-                <div style="background: #f7fafc; padding: 12px; border-radius: 6px; font-size: 0.9rem; color: #718096; line-height: 1.6;">
-                    <div>🕒 <strong>Hours:</strong> 8:00 AM – 4:00 PM (Mon - Fri)</div>
-                    <div>🛠️ <strong>Services:</strong> Voluntary HIV Testing, PMTCT, Antenatal Care</div>
-                </div>
-            </div>
-
+        <div style="text-align: center; padding: 40px; background: #ffffff; border-radius: 8px; border: 1px solid #e2e8f0;">
+            <p style="color: #718096; font-size: 1.1rem; margin: 0;">No health centers currently listed in the database.</p>
         </div>
     {% endif %}
 
