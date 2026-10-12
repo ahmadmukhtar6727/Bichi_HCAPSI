@@ -22,48 +22,78 @@
         header {
             background-color: #1a365d;
             color: #ffffff;
-            padding: 15px 20px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 15px 30px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.12);
         }
         .header-container {
-            max-width: 1150px;
+            width: 100%;
+            max-width: 1400px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 15px;
+            gap: 20px;
         }
+        /* Far-Left Large Brand Logo Section */
         .brand-logo {
-            font-size: 1.25rem;
-            font-weight: bold;
+            font-size: 1.5rem;
+            font-weight: 800;
             color: #ffffff;
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 12px;
+            margin-right: auto; /* Pushes the logo sharply to the far-left corner */
         }
+        .brand-logo img {
+            height: 52px; /* Enlarged size */
+            width: auto;
+            object-fit: contain;
+            border-radius: 6px;
+        }
+        .brand-text-container {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.1;
+        }
+        .brand-title {
+            font-size: 1.55rem;
+            font-weight: 900;
+            letter-spacing: 0.8px;
+            color: #ffffff;
+        }
+        .brand-subtitle {
+            font-size: 0.75rem;
+            color: #cbd5e0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 3px;
+        }
+
+        /* Navigation Links on the Right */
         nav.nav-links {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 18px;
             flex-wrap: wrap;
         }
         nav.nav-links a {
             color: #e2e8f0;
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             font-weight: 500;
             transition: color 0.2s;
         }
         nav.nav-links a:hover {
-            color: #3182ce;
+            color: #63b3ed;
         }
+
         .main-content {
             flex: 1;
         }
         .flash-messages {
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 20px auto 0 auto;
             padding: 0 15px;
         }
@@ -95,9 +125,18 @@
     <!-- Header & Main Navigation -->
     <header>
         <div class="header-container">
+            
+            <!-- Far-Left Large Brand Logo -->
             <a href="{{ url_for('home') }}" class="brand-logo">
-                🏥 <span>BHCAPSI</span>
+                <img src="{{ url_for('static', filename='logo.png') }}" alt="BHCAPSI Logo" onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='inline';">
+                <span id="logo-fallback" style="display: none; font-size: 2rem;">🏥</span>
+                <div class="brand-text-container">
+                    <span class="brand-title">BHCAPSI</span>
+                    <span class="brand-subtitle">Bichi Health Initiative</span>
+                </div>
             </a>
+
+            <!-- Right Navigation Links -->
             <nav class="nav-links">
                 <a href="{{ url_for('home') }}">Home</a>
                 <a href="{{ url_for('about') }}">About Us</a>
@@ -114,9 +153,10 @@
                     <a href="{{ url_for('change_password') }}">Change Password</a>
                     <a href="{{ url_for('logout') }}" style="color: #e53e3e;">Logout</a>
                 {% else %}
-                    <a href="{{ url_for('login') }}" style="background: #2b6cb0; padding: 6px 12px; border-radius: 4px; color: #fff;">Login</a>
+                    <a href="{{ url_for('login') }}" style="background: #2b6cb0; padding: 7px 14px; border-radius: 4px; color: #fff; font-weight: bold;">Login</a>
                 {% endif %}
             </nav>
+
         </div>
     </header>
 
