@@ -6,8 +6,8 @@
 <!-- Header Banner -->
 <section style="background: linear-gradient(135deg, #1a365d 0%, #2b6cb0 100%); color: #ffffff; padding: 50px 20px; text-align: center;">
     <div style="max-width: 900px; margin: 0 auto;">
-        <h1 style="font-size: 2.2rem; margin: 0 0 10px 0;">Health Centers & Annex Directory</h1>
-        <p style="font-size: 1.1rem; opacity: 0.9; margin: 0;">
+        <h1 style="font-size: 2.2rem; margin: 0 0 10px 0;" data-en="Health Centers & Annex Directory" data-ha="Rijistar Cibiyoyin Lafiya da Wajen Tallafi">Health Centers & Annex Directory</h1>
+        <p style="font-size: 1.1rem; opacity: 0.9; margin: 0;" data-en="Directory of primary health centers, specialized clinics, and ward annex facilities across Bichi Local Government Area." data-ha="Jerin cibiyoyin lafiya na farko, manyan asibitoci, da wajajen tallafi a mazabun Karamar Hukumar Bichi.">
             Directory of primary health centers, specialized clinics, and ward annex facilities across Bichi Local Government Area.
         </p>
     </div>
@@ -16,26 +16,69 @@
 <section class="container" style="max-width: 1100px; margin: 40px auto; padding: 0 15px;">
 
     <!-- Verification Safeguard Banner -->
-    <div style="background: #ebf8ff; border: 1px solid #bee3f8; border-left: 5px solid #3182ce; padding: 15px 20px; border-radius: 8px; margin-bottom: 35px; color: #2b6cb0; font-size: 0.92rem; line-height: 1.5;">
-        <strong>ℹ️ Official Directory:</strong> Service hours, contact details, and ward annex facilities are updated directly by authorized BHCAPSI administrators to ensure reliable community referrals.
+    <div style="background: #ebf8ff; border: 1px solid #bee3f8; border-left: 5px solid #3182ce; padding: 15px 20px; border-radius: 8px; margin-bottom: 25px; color: #2b6cb0; font-size: 0.92rem; line-height: 1.5;">
+        <strong data-en="ℹ️ Official Directory:" data-ha="ℹ️ Rijista ta Kasa:">ℹ️ Official Directory:</strong> 
+        <span data-en="Service hours, contact details, and ward annex facilities are updated directly by authorized BHCAPSI administrators to ensure reliable community referrals." data-ha="Manajojin BHCAPSI ke sabunta awannin aiki da lambobin tuntuba don tabbatar da tura marasa lafiya zuwa asibitocin da suka dace.">Service hours, contact details, and ward annex facilities are updated directly by authorized BHCAPSI administrators to ensure reliable community referrals.</span>
+    </div>
+
+    <!-- Interactive Search Bar & Ward Filter Control Panel -->
+    <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 20px; margin-bottom: 30px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+        <div style="display: flex; flex-wrap: wrap; gap: 15px; align-items: center;">
+            
+            <!-- Keyword Search Input -->
+            <div style="flex: 2; min-width: 260px;">
+                <label for="searchInput" style="display: block; font-weight: 600; color: #2d3748; margin-bottom: 6px; font-size: 0.88rem;" data-en="🔍 Search Facility or Services:" data-ha="🔍 Nemi Asibiti ko Ayyuka:">🔍 Search Facility or Services:</label>
+                <input type="text" id="searchInput" onkeyup="filterCenters()" placeholder="Type center name, address, or service..." style="width: 100%; padding: 10px 14px; border: 1px solid #cbd5e0; border-radius: 6px; font-size: 0.95rem; outline: none; transition: border-color 0.2s;">
+            </div>
+
+            <!-- Ward Selector Dropdown -->
+            <div style="flex: 1; min-width: 200px;">
+                <label for="wardSelect" style="display: block; font-weight: 600; color: #2d3748; margin-bottom: 6px; font-size: 0.88rem;" data-en="📍 Filter by Ward:" data-ha="📍 Zaɓi Mazaba:">📍 Filter by Ward:</label>
+                <select id="wardSelect" onchange="filterCenters()" style="width: 100%; padding: 10px 14px; border: 1px solid #cbd5e0; border-radius: 6px; font-size: 0.95rem; background-color: #ffffff; cursor: pointer; outline: none;">
+                    <option value="ALL" data-en="All Wards" data-ha="Dukkan Mazabu">All Wards</option>
+                    {% if centers %}
+                        {% set wards = [] %}
+                        {% for center in centers %}
+                            {% if center.ward not in wards %}
+                                {% set _ = wards.append(center.ward) %}
+                            {% endif %}
+                        {% endfor %}
+                        {% for ward in wards|sort %}
+                            <option value="{{ ward }}">{{ ward }}</option>
+                        {% endfor %}
+                    {% endif %}
+                </select>
+            </div>
+
+            <!-- Reset Button -->
+            <div style="align-self: flex-end;">
+                <button onclick="resetFilters()" style="padding: 10px 18px; background: #edf2f7; color: #4a5568; border: 1px solid #cbd5e0; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 0.9rem;" data-en="Reset Filters" data-ha="Sake Saita">Reset Filters</button>
+            </div>
+
+        </div>
+
+        <!-- Live Result Counter -->
+        <div id="resultCount" style="margin-top: 15px; font-size: 0.88rem; color: #718096; font-weight: 500;">
+            Showing {{ centers|length if centers else 0 }} facility/facilities.
+        </div>
     </div>
 
     <!-- Health Center Cards Grid -->
     {% if centers %}
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px;">
+        <div id="centersGrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px;">
             {% for center in centers %}
-            <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 25px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); display: flex; flex-direction: column; justify-content: space-between;">
+            <div class="center-card" data-ward="{{ center.ward }}" data-search="{{ center.name|lower }} {{ center.address|lower }} {{ center.services|lower }} {{ center.ward|lower }}" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 25px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); display: flex; flex-direction: column; justify-content: space-between;">
                 <div>
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
                         <span style="background: #edf2f7; color: #2b6cb0; font-size: 0.8rem; font-weight: bold; padding: 4px 12px; border-radius: 12px; text-transform: uppercase;">
                             📍 {{ center.ward }}
                         </span>
                         {% if 'Annex' in center.name or 'Post' in center.name %}
-                        <span style="background: #feebc8; color: #744210; font-size: 0.75rem; font-weight: bold; padding: 3px 8px; border-radius: 10px;">
+                        <span style="background: #feebc8; color: #744210; font-size: 0.75rem; font-weight: bold; padding: 3px 8px; border-radius: 10px;" data-en="Ward Annex" data-ha="Wajen Tallafi">
                             Ward Annex
                         </span>
                         {% else %}
-                        <span style="background: #c6f6d5; color: #22543d; font-size: 0.75rem; font-weight: bold; padding: 3px 8px; border-radius: 10px;">
+                        <span style="background: #c6f6d5; color: #22543d; font-size: 0.75rem; font-weight: bold; padding: 3px 8px; border-radius: 10px;" data-en="Main Facility" data-ha="Babban Asibiti">
                             Main Facility
                         </span>
                         {% endif %}
@@ -43,31 +86,88 @@
                     
                     <h3 style="color: #1a365d; margin: 0 0 8px 0; font-size: 1.25rem;">{{ center.name }}</h3>
                     <p style="color: #4a5568; font-size: 0.92rem; margin-bottom: 15px;">
-                        <strong>Address:</strong> {{ center.address }}
+                        <strong data-en="Address:" data-ha="Adireshi:">Address:</strong> {{ center.address }}
                     </p>
 
                     <div style="background: #f7fafc; padding: 12px; border-radius: 6px; font-size: 0.9rem; color: #4a5568; line-height: 1.6; margin-bottom: 15px;">
-                        <div>🛠️ <strong>Services:</strong> {{ center.services }}</div>
-                        <div style="margin-top: 6px;">🕒 <strong>Hours:</strong> {{ center.hours }}</div>
+                        <div>🛠️ <strong data-en="Services:" data-ha="Ayyuka:">Services:</strong> {{ center.services }}</div>
+                        <div style="margin-top: 6px;">🕒 <strong data-en="Hours:" data-ha="Lokaci:">Hours:</strong> {{ center.hours }}</div>
                         {% if center.phone %}
-                        <div style="margin-top: 6px;">📞 <strong>Contact:</strong> {{ center.phone }}</div>
+                        <div style="margin-top: 6px;">📞 <strong data-en="Contact:" data-ha="Lamba:">Contact:</strong> {{ center.phone }}</div>
                         {% endif %}
                     </div>
                 </div>
 
                 <div style="border-top: 1px solid #edf2f7; padding-top: 12px; text-align: right;">
-                    <a href="{{ url_for('contact') }}" style="color: #2b6cb0; text-decoration: none; font-size: 0.88rem; font-weight: 600;">
+                    <a href="{{ url_for('contact') }}" style="color: #2b6cb0; text-decoration: none; font-size: 0.88rem; font-weight: 600;" data-en="Inquire about referral →" data-ha="Tambaya kan tura asibiti →">
                         Inquire about referral →
                     </a>
                 </div>
             </div>
             {% endfor %}
         </div>
+
+        <!-- No Matching Results Alert -->
+        <div id="noResults" style="display: none; text-align: center; padding: 40px; background: #ffffff; border-radius: 8px; border: 1px solid #e2e8f0; margin-top: 20px;">
+            <p style="color: #718096; font-size: 1.1rem; margin: 0;" data-en="No health centers match your search criteria. Try adjusting your ward or search keyword." data-ha="Babu cibiyar lafiyar da ta dace da bincikenku. Gwada sake zaɓan mazaba ko kalmar bincike.">
+                No health centers match your search criteria. Try adjusting your ward or search keyword.
+            </p>
+        </div>
+
     {% else %}
         <div style="text-align: center; padding: 40px; background: #ffffff; border-radius: 8px; border: 1px solid #e2e8f0;">
-            <p style="color: #718096; font-size: 1.1rem; margin: 0;">No health centers currently listed in the database.</p>
+            <p style="color: #718096; font-size: 1.1rem; margin: 0;" data-en="No health centers currently listed in the database." data-ha="Babu cibiyoyin lafiya a rijistar a yanzu.">No health centers currently listed in the database.</p>
         </div>
     {% endif %}
 
 </section>
+
+<!-- Client-Side Search & Filter Script -->
+<script>
+function filterCenters() {
+    const searchVal = document.getElementById('searchInput').value.toLowerCase().trim();
+    const selectedWard = document.getElementById('wardSelect').value;
+    const cards = document.querySelectorAll('.center-card');
+    const noResults = document.getElementById('noResults');
+    const resultCount = document.getElementById('resultCount');
+    
+    let visibleCount = 0;
+
+    cards.forEach(card => {
+        const cardData = card.getAttribute('data-search');
+        const cardWard = card.getAttribute('data-ward');
+
+        const matchesSearch = searchVal === '' || cardData.includes(searchVal);
+        const matchesWard = selectedWard === 'ALL' || cardWard === selectedWard;
+
+        if (matchesSearch && matchesWard) {
+            card.style.display = 'flex';
+            visibleCount++;
+        } else {
+            card.style.display = 'none';
+        }
+    });
+
+    // Update Result Count Text
+    const lang = localStorage.getItem('bhcapsi_lang') || 'en';
+    if (lang === 'ha') {
+        resultCount.textContent = `Ana nuna cibiyoyi ${visibleCount}.`;
+    } else {
+        resultCount.textContent = `Showing ${visibleCount} facility/facilities.`;
+    }
+
+    // Toggle No Results Message
+    if (visibleCount === 0 && cards.length > 0) {
+        noResults.style.display = 'block';
+    } else {
+        noResults.style.display = 'none';
+    }
+}
+
+function resetFilters() {
+    document.getElementById('searchInput').value = '';
+    document.getElementById('wardSelect').value = 'ALL';
+    filterCenters();
+}
+</script>
 {% endblock %}
