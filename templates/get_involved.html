@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block title %}Get Involved & Partner With Us - BHCAPSI{% endblock %}
+
+{% block content %}
+<!-- Header Banner -->
+<section style="background: linear-gradient(135deg, #1a365d 0%, #2b6cb0 100%); color: #ffffff; padding: 50px 20px; text-align: center;">
+    <div style="max-width: 900px; margin: 0 auto;">
+        <h1 style="font-size: 2.2rem; margin: 0 0 10px 0;">Get Involved & Partner With Us</h1>
+        <p style="font-size: 1.1rem; opacity: 0.9; margin: 0;">
+            Building healthier communities in Bichi Local Government Area through collective action, institutional collaboration, and local advocacy.
+        </p>
+    </div>
+</section>
+
+<section class="container" style="max-width: 1100px; margin: 40px auto; padding: 0 15px;">
+
+    <!-- Partner With Us Section -->
+    <div style="background: #ffffff; border: 1px solid #e2e8f0; border-top: 5px solid #2b6cb0; border-radius: 8px; padding: 30px; margin-bottom: 35px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 15px;">
+            <span style="font-size: 1.8rem;">🤝</span>
+            <h2 style="color: #1a365d; margin: 0; font-size: 1.6rem;">Partner With Us</h2>
+        </div>
+        <p style="color: #4a5568; line-height: 1.7; margin-bottom: 20px;">
+            Bichi Healthier Community, Awareness, Prevention & Support Initiative welcomes opportunities to connect with organizations and individuals who share a commitment to healthier, better-informed communities in Kano State.
+        </p>
+        
+        <h3 style="color: #2d3748; font-size: 1.15rem; margin-bottom: 10px;">Potential Collaboration Areas:</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 15px; margin-bottom: 20px;">
+            <div style="background: #f7fafc; border: 1px solid #edf2f7; border-radius: 6px; padding: 15px;">
+                <strong style="color: #2b6cb0; display: block; margin-bottom: 5px;">📍 Community Outreach</strong>
+                <span style="color: #718096; font-size: 0.9rem;">Joint health education campaigns and grass-roots disease prevention awareness.</span>
+            </div>
+            <div style="background: #f7fafc; border: 1px solid #edf2f7; border-radius: 6px; padding: 15px;">
+                <strong style="color: #2b6cb0; display: block; margin-bottom: 5px;">🏥 Health Facility Linkage</strong>
+                <span style="color: #718096; font-size: 0.9rem;">Strengthening referral pathways for HIV testing, PMTCT, and non-communicable disease care.</span>
+            </div>
+            <div style="background: #f7fafc; border: 1px solid #edf2f7; border-radius: 6px; padding: 15px;">
+                <strong style="color: #2b6cb0; display: block; margin-bottom: 5px;">🎓 Stakeholder Training</strong>
+                <span style="color: #718096; font-size: 0.9rem;">Capacity-building workshops for local health advocates, youth groups, and community leaders.</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Volunteer With Us Section -->
+    <div style="background: #ffffff; border: 1px solid #e2e8f0; border-top: 5px solid #38a169; border-radius: 8px; padding: 30px; margin-bottom: 35px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 15px;">
+            <span style="font-size: 1.8rem;">🙋‍♂️</span>
+            <h2 style="color: #1a365d; margin: 0; font-size: 1.6rem;">Volunteer With Us</h2>
+        </div>
+        <p style="color: #4a5568; line-height: 1.7; margin-bottom: 15px;">
+            Community health improvement requires local participation. We invite health professionals, student advocates, civil society leaders, and community members in Bichi LGA to volunteer.
+        </p>
+
+        <h3 style="color: #2d3748; font-size: 1.15rem; margin-bottom: 10px;">Volunteer Eligibility & Code of Conduct:</h3>
+        <ul style="color: #4a5568; line-height: 1.6; padding-left: 20px; margin-bottom: 20px;">
+            <li>Commitment to non-discrimination, confidentiality, and respect for all community members.</li>
+            <li>Willingness to support community health education and awareness sessions across local wards.</li>
+            <li>Compliance with national data protection guidelines and BHCAPSI ethics.</li>
+        </ul>
+    </div>
+
+    <!-- Inquiry / Application Form Card -->
+    <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 30px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+        <h3 style="color: #1a365d; margin-top: 0; margin-bottom: 10px;">Submit a Partnership or Volunteer Inquiry</h3>
+        <p style="color: #718096; margin-bottom: 20px; font-size: 0.95rem;">
+            Fill out the form below to share your organization details or volunteer interest. Our team will get back to you promptly.
+        </p>
+
+        <!-- Privacy Notice Banner -->
+        <div style="background: #ebf8ff; border-left: 4px solid #3182ce; padding: 12px 15px; border-radius: 4px; margin-bottom: 20px; color: #2b6cb0; font-size: 0.88rem;">
+            <strong>⚠️ Notice:</strong> Please do not submit medical records, patient data, or confidential medical information through this general inquiry form.
+        </div>
+
+        <form action="{{ url_for('contact') }}" method="POST">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 15px; margin-bottom: 15px;">
+                <div>
+                    <label for="name" style="display: block; color: #2d3748; font-weight: 600; margin-bottom: 5px;">Full Name / Organization *</label>
+                    <input type="text" id="name" name="name" required placeholder="e.g. Amina Garba or Community Health Group" style="width: 100%; padding: 10px; border: 1px solid #cbd5e0; border-radius: 6px;">
+                </div>
+
+                <div>
+                    <label for="email" style="display: block; color: #2d3748; font-weight: 600; margin-bottom: 5px;">Email Address *</label>
+                    <input type="email" id="email" name="email" required placeholder="e.g. amina@example.com" style="width: 100%; padding: 10px; border: 1px solid #cbd5e0; border-radius: 6px;">
+                </div>
+            </div>
+
+            <div style="margin-bottom: 15px;">
+                <label for="subject" style="display: block; color: #2d3748; font-weight: 600; margin-bottom: 5px;">Subject / Area of Interest *</label>
+                <input type="text" id="subject" name="subject" required placeholder="e.g. Partnership Inquiry or Volunteer Application" style="width: 100%; padding: 10px; border: 1px solid #cbd5e0; border-radius: 6px;">
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <label for="message" style="display: block; color: #2d3748; font-weight: 600; margin-bottom: 5px;">Message & Details *</label>
+                <textarea id="message" name="message" rows="5" required placeholder="Tell us about your organization, experience, or how you would like to collaborate..." style="width: 100%; padding: 10px; border: 1px solid #cbd5e0; border-radius: 6px; resize: vertical;"></textarea>
+            </div>
+
+            <button type="submit" style="background: #1a365d; color: #ffffff; font-weight: bold; border: none; padding: 12px 24px; border-radius: 6px; cursor: pointer; font-size: 1rem;">
+                Submit Inquiry
+            </button>
+        </form>
+    </div>
+
+</section>
+{% endblock %}
