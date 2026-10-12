@@ -35,7 +35,7 @@
             flex-wrap: wrap;
             gap: 20px;
         }
-        /* Far-Left Large Brand Logo Section */
+        /* Far-Left Large Brand Logo */
         .brand-logo {
             font-size: 1.5rem;
             font-weight: 800;
@@ -44,10 +44,10 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            margin-right: auto; /* Pushes the logo sharply to the far-left corner */
+            margin-right: auto;
         }
         .brand-logo img {
-            height: 52px; /* Enlarged size */
+            height: 52px;
             width: auto;
             object-fit: contain;
             border-radius: 6px;
@@ -87,6 +87,25 @@
         }
         nav.nav-links a:hover {
             color: #63b3ed;
+        }
+
+        /* Language Toggle Button */
+        .lang-btn {
+            background: #3182ce;
+            color: #ffffff;
+            border: 1px solid #63b3ed;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .lang-btn:hover {
+            background: #2b6cb0;
         }
 
         .main-content {
@@ -132,20 +151,25 @@
                 <span id="logo-fallback" style="display: none; font-size: 2rem;">🏥</span>
                 <div class="brand-text-container">
                     <span class="brand-title">BHCAPSI</span>
-                    <span class="brand-subtitle">Bichi Health Initiative</span>
+                    <span class="brand-subtitle" data-en="Bichi Health Initiative" data-ha="Ayyukan Lafiya ta Bichi">Bichi Health Initiative</span>
                 </div>
             </a>
 
             <!-- Right Navigation Links -->
             <nav class="nav-links">
-                <a href="{{ url_for('home') }}">Home</a>
-                <a href="{{ url_for('about') }}">About Us</a>
-                <a href="{{ url_for('programs') }}">Our Programs</a>
-                <a href="{{ url_for('projects') }}" style="color: #63b3ed; font-weight: 600;">Projects & Outreach</a>
-                <a href="{{ url_for('centers') }}">Health Centers</a>
-                <a href="{{ url_for('resources') }}">Health Resources</a>
-                <a href="{{ url_for('get_involved') }}">Get Involved</a>
-                <a href="{{ url_for('contact') }}">Contact Us</a>
+                <a href="{{ url_for('home') }}" data-en="Home" data-ha="Gida">Home</a>
+                <a href="{{ url_for('about') }}" data-en="About Us" data-ha="Game da Mu">About Us</a>
+                <a href="{{ url_for('programs') }}" data-en="Our Programs" data-ha="Ayyukanmu">Our Programs</a>
+                <a href="{{ url_for('projects') }}" style="color: #63b3ed; font-weight: 600;" data-en="Projects & Outreach" data-ha="Ayyukan Al'umma">Projects & Outreach</a>
+                <a href="{{ url_for('centers') }}" data-en="Health Centers" data-ha="Cibiyoyin Lafiya">Health Centers</a>
+                <a href="{{ url_for('resources') }}" data-en="Health Resources" data-ha="Bayanai & Fills">Health Resources</a>
+                <a href="{{ url_for('get_involved') }}" data-en="Get Involved" data-ha="Kasance tare da Mu">Get Involved</a>
+                <a href="{{ url_for('contact') }}" data-en="Contact Us" data-ha="Tuntube Mu">Contact Us</a>
+
+                <!-- Language Switcher Button -->
+                <button id="lang-toggle-btn" class="lang-btn" onclick="toggleLanguage()">
+                    🌐 <span id="lang-label">Hausa</span>
+                </button>
                 
                 {% if current_user is defined and current_user.is_authenticated %}
                     <a href="{{ url_for('admin_centers') }}" style="color: #f6ad55; font-weight: bold;">Manage Centers</a>
@@ -182,10 +206,44 @@
     <footer style="background: #1a365d; color: #ffffff; text-align: center; padding: 25px 15px; margin-top: 50px; font-size: 0.9rem;">
         <p style="margin: 0 0 10px 0;">&copy; 2026 Bichi Healthier Community, Awareness, Prevention & Support Initiative (BHCAPSI). All rights reserved.</p>
         <div>
-            <a href="{{ url_for('privacy_policy') }}" style="color: #cbd5e0; text-decoration: underline; margin: 0 10px;">Privacy Policy & NDPA Compliance</a> |
-            <a href="{{ url_for('contact') }}" style="color: #cbd5e0; text-decoration: underline; margin: 0 10px;">Contact Support</a>
+            <a href="{{ url_for('privacy_policy') }}" style="color: #cbd5e0; text-decoration: underline; margin: 0 10px;" data-en="Privacy Policy & NDPA Compliance" data-ha="Tsarin Sirri & NDPA">Privacy Policy & NDPA Compliance</a> |
+            <a href="{{ url_for('contact') }}" style="color: #cbd5e0; text-decoration: underline; margin: 0 10px;" data-en="Contact Support" data-ha="Tuntubi Taimako">Contact Support</a>
         </div>
     </footer>
+
+    <!-- JavaScript Language Translation Handler -->
+    <script>
+        function setLanguage(lang) {
+            localStorage.setItem('bhcapsi_lang', lang);
+            
+            // Translate all elements with data-en and data-ha attributes
+            document.querySelectorAll('[data-en][data-ha]').forEach(el => {
+                if (lang === 'ha') {
+                    el.textContent = el.getAttribute('data-ha');
+                } else {
+                    el.textContent = el.getAttribute('data-en');
+                }
+            });
+
+            // Update button text label
+            const label = document.getElementById('lang-label');
+            if (label) {
+                label.textContent = (lang === 'ha') ? 'English' : 'Hausa';
+            }
+        }
+
+        function toggleLanguage() {
+            const currentLang = localStorage.getItem('bhcapsi_lang') || 'en';
+            const newLang = (currentLang === 'en') ? 'ha' : 'en';
+            setLanguage(newLang);
+        }
+
+        // Initialize saved language on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('bhcapsi_lang') || 'en';
+            setLanguage(savedLang);
+        });
+    </script>
 
 </body>
 </html>
