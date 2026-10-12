@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+
+{% block title %}Our Programs - Bichi Healthier Community Initiative{% endblock %}
+
+{% block content %}
+<!-- Header Banner -->
+<section style="background: linear-gradient(135deg, #1a365d 0%, #2b6cb0 100%); color: #ffffff; padding: 50px 20px; text-align: center;">
+    <div style="max-width: 900px; margin: 0 auto;">
+        <h1 style="font-size: 2.2rem; margin: 0 0 10px 0;">Our Programs & Initiatives</h1>
+        <p style="font-size: 1.1rem; opacity: 0.9; margin: 0;">
+            Promoting health awareness, disease prevention, and connecting communities with appropriate health services across Bichi LGA.
+        </p>
+    </div>
+</section>
+
+<!-- Main Content Area -->
+<section class="container" style="max-width: 1100px; margin: 40px auto; padding: 0 15px;">
+
+    <!-- Quick Navigation Anchor Links -->
+    <div style="background: #edf2f7; border-radius: 8px; padding: 15px 20px; margin-bottom: 40px; text-align: center;">
+        <span style="font-weight: bold; color: #2d3748; margin-right: 10px;">Jump to Section:</span>
+        <a href="#hiv-prevention" style="color: #2b6cb0; text-decoration: none; margin: 0 8px; font-weight: 600;">HIV Support</a> |
+        <a href="#communicable" style="color: #2b6cb0; text-decoration: none; margin: 0 8px; font-weight: 600;">Communicable Diseases</a> |
+        <a href="#ncd" style="color: #2b6cb0; text-decoration: none; margin: 0 8px; font-weight: 600;">NCD Awareness</a> |
+        <a href="#outreach" style="color: #2b6cb0; text-decoration: none; margin: 0 8px; font-weight: 600;">Community Outreach</a> |
+        <a href="#linkage" style="color: #2b6cb0; text-decoration: none; margin: 0 8px; font-weight: 600;">Facility Linkage</a>
+    </div>
+
+    <!-- 1. HIV Prevention, Awareness and Referral Support -->
+    <div id="hiv-prevention" style="background: #ffffff; border: 1px solid #e2e8f0; border-left: 6px solid #e53e3e; border-radius: 8px; padding: 30px; margin-bottom: 30px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 15px;">
+            <span style="font-size: 1.8rem;">🎗️</span>
+            <h2 style="color: #1a365d; margin: 0; font-size: 1.5rem;">1. HIV Prevention, Awareness & Referral Support</h2>
+        </div>
+        <p style="color: #4a5568; line-height: 1.7; margin-bottom: 15px;">
+            We provide comprehensive HIV prevention education, promote voluntary counseling and testing (HTS) awareness, and emphasize confidentiality and informed consent. Our initiatives aim to eliminate social stigma and help individuals identify trusted health centers for testing, counseling, and long-term care.
+        </p>
+        <ul style="color: #4a5568; line-height: 1.6; padding-left: 20px; margin-bottom: 20px;">
+            <li>Promoting free HIV Testing and Counseling (HTS) across supported centers.</li>
+            <li>Awareness on Prevention of Mother-to-Child Transmission (PMTCT) for pregnant mothers.</li>
+            <li>Education on Undetectable = Untransmittable (U=U) and Anti-Retroviral Therapy (ART) adherence.</li>
+            <li>Confidential community support and anti-stigma campaigns.</li>
+        </ul>
+        <a href="{{ url_for('centers') }}" style="display: inline-block; background: #e53e3e; color: #ffffff; padding: 8px 18px; border-radius: 6px; font-weight: bold; text-decoration: none; font-size: 0.9rem;">
+            Find Testing & Counseling Centers →
+        </a>
+    </div>
+
+    <!-- 2. Communicable Disease Prevention -->
+    <div id="communicable" style="background: #ffffff; border: 1px solid #e2e8f0; border-left: 6px solid #319795; border-radius: 8px; padding: 30px; margin-bottom: 30px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 15px;">
+            <span style="font-size: 1.8rem;">🛡️</span>
+            <h2 style="color: #1a365d; margin: 0; font-size: 1.5rem;">2. Communicable Disease Prevention</h2>
+        </div>
+        <p style="color: #4a5568; line-height: 1.7; margin-bottom: 15px;">
+            Providing general health education on communicable diseases affecting Bichi LGA and surrounding communities. We focus on preventive measures, early symptom identification, and timely medical evaluation to curb community transmission.
+        </p>
+        <ul style="color: #4a5568; line-height: 1.6; padding-left: 20px; margin-bottom: 20px;">
+            <li><strong>Tuberculosis (TB):</strong> Screening education, cough hygiene, and referral for free diagnosis.</li>
+            <li><strong>Malaria:</strong> Vector control education, bed net utilization, and prompt testing.</li>
+            <li><strong>Hepatitis & STIs:</strong> Prevention strategies, safe hygiene practices, and treatment pathways.</li>
+        </ul>
+    </div>
+
+    <!-- 3. Non-Communicable Disease (NCD) Awareness -->
+    <div id="ncd" style="background: #ffffff; border: 1px solid #e2e8f0; border-left: 6px solid #d69e2e; border-radius: 8px; padding: 30px; margin-bottom: 30px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 15px;">
+            <span style="font-size: 1.8rem;">🫀</span>
+            <h2 style="color: #1a365d; margin: 0; font-size: 1.5rem;">3. Non-Communicable Disease (NCD) Awareness</h2>
+        </div>
+        <p style="color: #4a5568; line-height: 1.7; margin-bottom: 15px;">
+            Promoting community education on chronic conditions such as hypertension, diabetes, and cardiovascular diseases. We emphasize early detection, routine blood pressure checks, balanced nutrition, and ongoing medical management.
+        </p>
+        <ul style="color: #4a5568; line-height: 1.6; padding-left: 20px; margin-bottom: 20px;">
+            <li>Understanding risk factors, lifestyle choices, and dietary adjustments.</li>
+            <li>Encouraging routine blood pressure and blood sugar screenings at local health facilities.</li>
+            <li>Guidance on medication compliance and follow-up care for chronic conditions.</li>
+        </ul>
+    </div>
+
+    <!-- 4. Community Outreach and Health Education -->
+    <div id="outreach" style="background: #ffffff; border: 1px solid #e2e8f0; border-left: 6px solid #805ad5; border-radius: 8px; padding: 30px; margin-bottom: 30px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 15px;">
+            <span style="font-size: 1.8rem;">📢</span>
+            <h2 style="color: #1a365d; margin: 0; font-size: 1.5rem;">4. Community Outreach & Health Education</h2>
+        </div>
+        <p style="color: #4a5568; line-height: 1.7; margin-bottom: 15px;">
+            Supporting grass-roots health awareness activities, community dialogues, and stakeholder engagement across Bichi wards. We work alongside local leaders, traditional institutions, and community groups to share accurate health facts in English and Hausa.
+        </p>
+        <ul style="color: #4a5568; line-height: 1.6; padding-left: 20px; margin-bottom: 20px;">
+            <li>Educational sessions at primary health centers and community gatherings.</li>
+            <li>Collaborative campaigns with local health advocates and volunteers.</li>
+            <li>Verified post-event activity reporting to measure outcome and community reach.</li>
+        </ul>
+    </div>
+
+    <!-- 5. Linkage to Appropriate Health Services -->
+    <div id="linkage" style="background: #ffffff; border: 1px solid #e2e8f0; border-left: 6px solid #2b6cb0; border-radius: 8px; padding: 30px; margin-bottom: 40px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 15px;">
+            <span style="font-size: 1.8rem;">🏥</span>
+            <h2 style="color: #1a365d; margin: 0; font-size: 1.5rem;">5. Linkage to Appropriate Health Services</h2>
+        </div>
+        <p style="color: #4a5568; line-height: 1.7; margin-bottom: 15px;">
+            Providing reliable guidance on where to seek qualified medical care. We assist community members in navigating local primary healthcare centers, general hospitals, and specialized clinical care pathways across Bichi Local Government Area.
+        </p>
+        <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-top: 20px;">
+            <a href="{{ url_for('centers') }}" style="background: #2b6cb0; color: #ffffff; padding: 10px 20px; border-radius: 6px; font-weight: bold; text-decoration: none;">
+                Browse Health Center Directory
+            </a>
+            <a href="{{ url_for('contact') }}" style="background: #edf2f7; color: #2b6cb0; padding: 10px 20px; border-radius: 6px; font-weight: bold; text-decoration: none;">
+                Contact Support Team
+            </a>
+        </div>
+    </div>
+
+</section>
+{% endblock %}
