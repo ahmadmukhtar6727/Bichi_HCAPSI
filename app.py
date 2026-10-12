@@ -78,9 +78,10 @@ with app.app_context():
         db.session.add(admin)
         db.session.commit()
 
-    # Seed initial health centers if empty
+    # Seed initial health centers & affiliated/annex facilities if empty
     if not HealthCenter.query.first():
         initial_centers = [
+            # Bichi Ward
             HealthCenter(
                 name="Bichi General Hospital",
                 ward="Bichi Ward",
@@ -90,6 +91,15 @@ with app.app_context():
                 hours="24/7 Emergency & Clinic"
             ),
             HealthCenter(
+                name="Bichi MCH Annex Facility",
+                ward="Bichi Ward",
+                address="Bichi Town Maternity Wing",
+                services="Antenatal Care, Immunization, PMTCT Counseling & Infant HTS",
+                phone="+234 800 000 0011",
+                hours="8:00 AM - 4:00 PM (Mon-Sat)"
+            ),
+            # Badume Ward
+            HealthCenter(
                 name="Badume Primary Health Care Center",
                 ward="Badume Ward",
                 address="Badume Central Road, near Market Square",
@@ -97,6 +107,15 @@ with app.app_context():
                 phone="+234 800 000 0002",
                 hours="8:00 AM - 4:00 PM (Daily)"
             ),
+            HealthCenter(
+                name="Badume Health Post Annex",
+                ward="Badume Ward",
+                address="Badume North Residential Area",
+                services="Basic Outpatient Care, Health Education, Immunization Outreach",
+                phone="+234 800 000 0012",
+                hours="8:00 AM - 2:00 PM (Mon-Fri)"
+            ),
+            # Danzabuwa Ward
             HealthCenter(
                 name="Danzabuwa Comprehensive Health Center",
                 ward="Danzabuwa Ward",
@@ -106,13 +125,31 @@ with app.app_context():
                 hours="24/7 Service"
             ),
             HealthCenter(
-                name="Fagwalawa Primary Health Post",
-                ward="Fagwalawa Ward",
-                address="Fagwalawa Central",
+                name="Danzabuwa Community Outreach Annex",
+                ward="Danzabuwa Ward",
+                address="Danzabuwa Rural Settlement Area",
+                services="Basic Screening, Health Education, Immunization, Referral Linkage",
+                phone="+234 800 000 0013",
+                hours="8:00 AM - 4:00 PM (Mon-Fri)"
+            ),
+            # Fagwale Ward (Updated from Fagwalawa)
+            HealthCenter(
+                name="Fagwale Primary Health Post",
+                ward="Fagwale Ward",
+                address="Fagwale Central",
                 services="Confidential HIV Counseling, Screening, TB/HIV Co-infection Clinic",
                 phone="+234 800 000 0004",
                 hours="8:00 AM - 4:00 PM (Mon-Fri)"
             ),
+            HealthCenter(
+                name="Fagwale Health Clinic Annex",
+                ward="Fagwale Ward",
+                address="Fagwale South Extension",
+                services="Outpatient Care, Maternal Health Support, Community Health Education",
+                phone="+234 800 000 0014",
+                hours="8:00 AM - 4:00 PM (Mon-Fri)"
+            ),
+            # Saye Ward
             HealthCenter(
                 name="Saye Model Primary Health Care",
                 ward="Saye Ward",
@@ -120,6 +157,14 @@ with app.app_context():
                 services="HTS, PMTCT, Family Planning, Community Referral",
                 phone="+234 800 000 0005",
                 hours="24/7 Service"
+            ),
+            HealthCenter(
+                name="Saye Annex Clinic",
+                ward="Saye Ward",
+                address="Saye Rural Quarters",
+                services="Basic Health Screening, Antenatal Support, Routine Immunization",
+                phone="+234 800 000 0015",
+                hours="8:00 AM - 4:00 PM (Mon-Fri)"
             ),
         ]
         db.session.add_all(initial_centers)
@@ -177,11 +222,11 @@ def resources():
     faqs = [
         {
             "question": "What HIV services are available in Bichi LGA?",
-            "answer": "BHCAPSI supports free HIV Testing & Counseling (HTS), Prevention of Mother-to-Child Transmission (PMTCT), ART medication refills, STI screening, and confidential counseling across supported primary health facilities in Bichi LGA."
+            "answer": "BHCAPSI supports free HIV Testing & Counseling (HTS), Prevention of Mother-to-Child Transmission (PMTCT), ART medication refills, STI screening, and confidential counseling across supported primary health facilities and annexes in Bichi LGA."
         },
         {
             "question": "Are HIV testing and counseling really free and confidential?",
-            "answer": "Yes. All testing and counseling services at supported centers are 100% free of charge. Patient records and test results are kept strictly confidential under national medical privacy guidelines."
+            "answer": "Yes. All testing and counseling services at supported centers and annexes are 100% free of charge. Patient records and test results are kept strictly confidential under national medical privacy guidelines."
         },
         {
             "question": "What does PMTCT mean for pregnant women?",
@@ -193,7 +238,7 @@ def resources():
         },
         {
             "question": "Where can I receive counseling or ART refills in Bichi?",
-            "answer": "You can visit any of our listed facilities in the Health Center Directory, such as Bichi General Hospital, Badume PHC, Danzabuwa Comprehensive Health Center, or Saye Model PHC."
+            "answer": "You can visit any of our listed main facilities or affiliated annexes in the Health Center Directory across Bichi wards, including Bichi General Hospital, Badume PHC, Danzabuwa Comprehensive Health Center, Fagwale Health Post, and Saye Model PHC."
         }
     ]
     return render_template("resources.html", faqs=faqs)
