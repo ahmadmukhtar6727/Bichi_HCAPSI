@@ -1,41 +1,53 @@
 {% extends "base.html" %}
 
-{% block title %}Register Admin Account{% endblock %}
+{% block title %}Register Admin Account - BHCAPSI{% endblock %}
 
 {% block content %}
-<h2>Register New Admin</h2>
+<section class="container" style="max-width: 500px; margin: 50px auto; padding: 0 15px;">
+    <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 30px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+        
+        <div style="text-align: center; margin-bottom: 25px;">
+            <h2 style="color: #1a365d; margin: 0 0 8px 0; font-size: 1.6rem;" data-en="Register New Admin" data-ha="Yin Rigistar Sabon Manaja">Register New Admin</h2>
+            <p style="color: #718096; font-size: 0.9rem; margin: 0;" data-en="Create an administrative account for BHCAPSI portal management." data-ha="Kirkiro asusun manaja domin gudanar da dandalin BHCAPSI.">
+                Create an administrative account for BHCAPSI portal management.
+            </p>
+        </div>
 
-<!-- Display flash feedback messages -->
-{% with messages = get_flashed_messages(with_categories=true) %}
-  {% if messages %}
-    {% for category, msg in messages %}
-      <div style="padding: 10px; margin-bottom: 15px; 
-                  background-color: {% if category == 'success' %}#d4edda{% else %}#f8d7da{% endif %}; 
-                  color: {% if category == 'success' %}#155724{% else %}#721c24{% endif %}; border: 1px solid transparent; border-radius: 4px;">
-        {{ msg }}
-      </div>
-    {% endfor %}
-  {% endif %}
-{% endwith %}
+        <!-- Flash feedback messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, msg in messages %}
+                    <div style="padding: 12px 15px; margin-bottom: 20px; border-radius: 6px; font-size: 0.9rem; font-weight: 500;
+                                background-color: {% if category == 'success' %}#f0fff4{% else %}#fff5f5{% endif %}; 
+                                color: {% if category == 'success' %}#22543d{% else %}#9b2c2c{% endif %}; 
+                                border: 1px solid {% if category == 'success' %}#9ae6b4{% else %}#feb2b2{% endif %};">
+                        {{ msg }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
 
-<form action="{{ url_for('register') }}" method="POST" style="max-width: 400px;">
-    <div style="margin-bottom: 12px;">
-        <label for="username">Username:</label><br>
-        <input type="text" id="username" name="username" required style="width: 100%; padding: 8px; box-sizing: border-box;">
+        <form action="{{ url_for('register') }}" method="POST">
+            <div style="margin-bottom: 18px;">
+                <label for="username" style="display: block; font-weight: 600; color: #2d3748; margin-bottom: 6px; font-size: 0.92rem;" data-en="Username:" data-ha="Suna da aka yi Rajista:">Username:</label>
+                <input type="text" id="username" name="username" required style="width: 100%; padding: 10px; border: 1px solid #cbd5e0; border-radius: 6px; box-sizing: border-box; font-size: 0.95rem;">
+            </div>
+
+            <div style="margin-bottom: 18px;">
+                <label for="password" style="display: block; font-weight: 600; color: #2d3748; margin-bottom: 6px; font-size: 0.92rem;" data-en="Password:" data-ha="Mabuɗin Sirri (Password):">Password:</label>
+                <input type="password" id="password" name="password" required style="width: 100%; padding: 10px; border: 1px solid #cbd5e0; border-radius: 6px; box-sizing: border-box; font-size: 0.95rem;">
+            </div>
+
+            <div style="margin-bottom: 22px;">
+                <label for="confirm_password" style="display: block; font-weight: 600; color: #2d3748; margin-bottom: 6px; font-size: 0.92rem;" data-en="Confirm Password:" data-ha="Tabbatar da Mabuɗin Sirri:">Confirm Password:</label>
+                <input type="password" id="confirm_password" name="confirm_password" required style="width: 100%; padding: 10px; border: 1px solid #cbd5e0; border-radius: 6px; box-sizing: border-box; font-size: 0.95rem;">
+            </div>
+
+            <button type="submit" style="width: 100%; padding: 12px; background-color: #2b6cb0; color: white; border: none; border-radius: 6px; font-weight: bold; font-size: 1rem; cursor: pointer; transition: background 0.2s;" data-en="Register Admin" data-ha="Yi Rigistar Manaja">
+                Register Admin
+            </button>
+        </form>
+
     </div>
-
-    <div style="margin-bottom: 12px;">
-        <label for="password">Password:</label><br>
-        <input type="password" id="password" name="password" required style="width: 100%; padding: 8px; box-sizing: border-box;">
-    </div>
-
-    <div style="margin-bottom: 12px;">
-        <label for="confirm_password">Confirm Password:</label><br>
-        <input type="password" id="confirm_password" name="confirm_password" required style="width: 100%; padding: 8px; box-sizing: border-box;">
-    </div>
-
-    <button type="submit" style="padding: 10px 20px; background-color: #0066cc; color: white; border: none; cursor: pointer;">
-        Register Admin
-    </button>
-</form>
+</section>
 {% endblock %}
