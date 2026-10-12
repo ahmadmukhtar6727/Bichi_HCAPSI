@@ -7,8 +7,8 @@
 
     <!-- Page Title & Header -->
     <div style="text-align: center; margin-bottom: 25px;">
-        <h2 style="color: #1a365d; font-size: 2rem; margin-bottom: 8px;">Contact & Confidential Inquiries</h2>
-        <p style="color: #4a5568; font-size: 1rem;">
+        <h2 style="color: #1a365d; font-size: 2rem; margin-bottom: 8px;" data-en="Contact & Confidential Inquiries" data-ha="Tuntuba & Neman Bayani na Sirri">Contact & Confidential Inquiries</h2>
+        <p style="color: #4a5568; font-size: 1rem;" data-en="Reach out to the Bichi Local Government Action Committee on AIDS for counseling, health facility referrals, or questions." data-ha="Tuntuɓi Kwamitin Yaki da Cutar Kanjamau na Karamar Hukumar Bichi don shawarwari, tura asibiti, ko tambayoyi.">
             Reach out to the Bichi Local Government Action Committee on AIDS for counseling, health facility referrals, or questions.
         </p>
     </div>
@@ -17,8 +17,8 @@
     <div style="background: #f0fff4; border: 1px solid #9ae6b4; border-left: 6px solid #38a169; border-radius: 8px; padding: 18px 20px; margin-bottom: 25px; display: flex; align-items: flex-start; gap: 15px;">
         <div style="font-size: 1.8rem; line-height: 1;">🛡️</div>
         <div>
-            <h4 style="color: #22543d; margin: 0 0 5px 0; font-size: 1.1rem; font-weight: 700;">100% Confidential & Secure Communication</h4>
-            <p style="color: #2f855a; margin: 0; font-size: 0.92rem; line-height: 1.5;">
+            <h4 style="color: #22543d; margin: 0 0 5px 0; font-size: 1.1rem; font-weight: 700;" data-en="100% Confidential & Secure Communication" data-ha="Aiko Sakon Sirri 100% Cikin Aminci">100% Confidential & Secure Communication</h4>
+            <p style="color: #2f855a; margin: 0; font-size: 0.92rem; line-height: 1.5;" data-en="Your privacy and safety are paramount. All messages submitted here are protected and reviewed exclusively by authorized BHCAPSI officers. You may also submit inquiries completely anonymously below." data-ha="Kare sirrinku da tsarokumu shine muhimmin burinmu. Dukkan sakonnin da aka tura anan ma'aikatan BHCAPSI kadai ke duba su. Hakanan zaku iya aiko da tambayoyinku ba tare da fadin sunanku ba.">
                 Your privacy and safety are paramount. All messages submitted here are protected and reviewed exclusively by authorized BHCAPSI officers. You may also submit inquiries <strong>completely anonymously</strong> below.
             </p>
         </div>
@@ -26,7 +26,8 @@
 
     <!-- Privacy Safeguard Notice Banner -->
     <div style="background: #ebf8ff; border: 1px solid #bee3f8; border-left: 5px solid #3182ce; padding: 15px 20px; border-radius: 8px; margin-bottom: 30px; color: #2b6cb0; font-size: 0.92rem; line-height: 1.5;">
-        <strong>⚠️ Notice:</strong> Please do not submit your HIV status, test results, medical records, or other sensitive personal health records through this general contact form.
+        <strong data-en="⚠️ Notice:" data-ha="⚠️ Sanarwa:">⚠️ Notice:</strong> 
+        <span data-en="Please do not submit your HIV status, test results, medical records, or other sensitive personal health records through this general contact form." data-ha="Muna rokon kada a aiko da sakamakon gwajin asibiti ko bayanan lafiya masu muhimmanci ta hanyar wannan fom din tuntuba.">Please do not submit your HIV status, test results, medical records, or other sensitive personal health records through this general contact form.</span>
     </div>
 
     <!-- Contact Form Card -->
@@ -37,37 +38,45 @@
             <!-- Anonymous Toggle Switch -->
             <div style="background: #ebf8ff; border: 1px solid #bee3f8; border-radius: 8px; padding: 14px 18px; margin-bottom: 25px; display: flex; align-items: center; gap: 12px;">
                 <input type="checkbox" id="is_anonymous" name="is_anonymous" onchange="toggleAnonymousMode(this)" style="width: 20px; height: 20px; cursor: pointer; accent-color: #2b6cb0;">
-                <label for="is_anonymous" style="color: #2c5282; font-weight: 600; font-size: 0.98rem; cursor: pointer; margin: 0;">
+                <label for="is_anonymous" style="color: #2c5282; font-weight: 600; font-size: 0.98rem; cursor: pointer; margin: 0;" data-en="Submit this message anonymously (Do not collect my name or email)" data-ha="Tura wannan sakon a asirce (Kada a karbi sunana ko email dina)">
                     Submit this message anonymously (Do not collect my name or email)
                 </label>
             </div>
 
             <!-- Name Field -->
             <div id="nameGroup" style="margin-bottom: 20px;">
-                <label for="name" style="display: block; color: #2d3748; font-weight: 600; margin-bottom: 6px;">Your Full Name <span style="color: #e53e3e;">*</span></label>
+                <label for="name" style="display: block; color: #2d3748; font-weight: 600; margin-bottom: 6px;">
+                    <span data-en="Your Full Name" data-ha="Cikakken Sunanka">Your Full Name</span> <span style="color: #e53e3e;">*</span>
+                </label>
                 <input type="text" id="name" name="name" required placeholder="e.g. Ibrahim Abubakar" style="width: 100%; padding: 12px; border: 1px solid #cbd5e0; border-radius: 6px; font-size: 1rem; outline: none; transition: border-color 0.2s;">
             </div>
 
             <!-- Email Field -->
             <div id="emailGroup" style="margin-bottom: 20px;">
-                <label for="email" style="display: block; color: #2d3748; font-weight: 600; margin-bottom: 6px;">Email Address <span style="color: #e53e3e;">*</span></label>
+                <label for="email" style="display: block; color: #2d3748; font-weight: 600; margin-bottom: 6px;">
+                    <span data-en="Email Address" data-ha="Adireshin Email">Email Address</span> <span style="color: #e53e3e;">*</span>
+                </label>
                 <input type="email" id="email" name="email" required placeholder="e.g. ibrahim@example.com" style="width: 100%; padding: 12px; border: 1px solid #cbd5e0; border-radius: 6px; font-size: 1rem; outline: none; transition: border-color 0.2s;">
             </div>
 
             <!-- Subject Field -->
             <div style="margin-bottom: 20px;">
-                <label for="subject" style="display: block; color: #2d3748; font-weight: 600; margin-bottom: 6px;">Subject <span style="color: #e53e3e;">*</span></label>
+                <label for="subject" style="display: block; color: #2d3748; font-weight: 600; margin-bottom: 6px;">
+                    <span data-en="Subject" data-ha="Batun Sakon">Subject</span> <span style="color: #e53e3e;">*</span>
+                </label>
                 <input type="text" id="subject" name="subject" required placeholder="e.g. Inquiry regarding PMTCT counseling" style="width: 100%; padding: 12px; border: 1px solid #cbd5e0; border-radius: 6px; font-size: 1rem; outline: none;">
             </div>
 
             <!-- Message Body -->
             <div style="margin-bottom: 25px;">
-                <label for="message" style="display: block; color: #2d3748; font-weight: 600; margin-bottom: 6px;">Your Message / Confidential Inquiry <span style="color: #e53e3e;">*</span></label>
+                <label for="message" style="display: block; color: #2d3748; font-weight: 600; margin-bottom: 6px;">
+                    <span data-en="Your Message / Confidential Inquiry" data-ha="Sakonka / Tambayarka ta Sirri">Your Message / Confidential Inquiry</span> <span style="color: #e53e3e;">*</span>
+                </label>
                 <textarea id="message" name="message" rows="5" required placeholder="Type your inquiry or message here..." style="width: 100%; padding: 12px; border: 1px solid #cbd5e0; border-radius: 6px; font-size: 1rem; outline: none; resize: vertical;"></textarea>
             </div>
 
             <!-- Submit Button -->
-            <button type="submit" style="width: 100%; background: #1a365d; color: #ffffff; font-size: 1.05rem; font-weight: bold; padding: 14px; border: none; border-radius: 6px; cursor: pointer; transition: background 0.2s;">
+            <button type="submit" style="width: 100%; background: #1a365d; color: #ffffff; font-size: 1.05rem; font-weight: bold; padding: 14px; border: none; border-radius: 6px; cursor: pointer; transition: background 0.2s;" data-en="🔒 Send Confidential Message" data-ha="🔒 Tura Sakon Sirri">
                 🔒 Send Confidential Message
             </button>
         </form>
