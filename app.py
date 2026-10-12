@@ -203,6 +203,22 @@ def centers():
     all_centers = HealthCenter.query.order_by(HealthCenter.ward, HealthCenter.name).all()
     return render_template("centers.html", centers=all_centers)
 
+@app.route("/programs")
+def programs():
+    return render_template("programs.html")
+
+@app.route("/projects")
+def projects():
+    return render_template("projects.html")
+
+@app.route("/get-involved")
+def get_involved():
+    return render_template("get_involved.html")
+
+@app.route("/privacy-policy")
+def privacy_policy():
+    return render_template("privacy_policy.html")
+
 # --- Authentication Routes ---
 
 @app.route("/login", methods=["GET", "POST"])

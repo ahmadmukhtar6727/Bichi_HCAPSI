@@ -1,39 +1,55 @@
 {% extends "base.html" %}
 
-{% block title %}Home - BHCAPSI{% endblock %}
+{% block title %}Home - Bichi Healthier Community Initiative{% endblock %}
 
 {% block content %}
-<section class="hero">
-    <div class="hero-content">
-        <h1>Welcome to BHCAPSI</h1>
-        <p>The organization therefore intends to work collaboratively with community leaders, health facilities, schools, youth groups, women's groups, religious leaders, government agencies, civil society organizations and development partners.</p>
-        <div class="hero-buttons">
-            <a href="{{ url_for('about') }}" class="btn btn-primary">Learn More About Us</a>
-            <a href="{{ url_for('contact') }}" class="btn btn-secondary">Get In Touch</a>
+<!-- Hero Banner -->
+<section style="background: linear-gradient(135deg, #1a365d 0%, #2b6cb0 100%); color: #ffffff; padding: 60px 20px; text-align: center;">
+    <div style="max-width: 900px; margin: 0 auto;">
+        <span style="background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 20px; font-size: 0.85rem; font-weight: bold; letter-spacing: 1px;">COMMUNITY HEALTH · BICHI, KANO STATE</span>
+        <h1 style="font-size: 2.5rem; margin: 20px 0 10px 0;">Building Healthier Communities Together</h1>
+        <p style="font-size: 1.2rem; margin-bottom: 30px; opacity: 0.9;">Promoting health awareness, preventing disease and connecting communities with appropriate health services.</p>
+        <div>
+            <a href="{{ url_for('programs') }}" style="background: #ffffff; color: #1a365d; padding: 12px 24px; border-radius: 6px; font-weight: bold; text-decoration: none; margin-right: 10px; display: inline-block;">Explore Our Programs</a>
+            <a href="{{ url_for('resources') }}" style="border: 2px solid #ffffff; color: #ffffff; padding: 10px 22px; border-radius: 6px; font-weight: bold; text-decoration: none; display: inline-block;">Get Health Information</a>
         </div>
     </div>
 </section>
 
-<section class="features">
-    <h2>What We Offer</h2>
-    <div class="grid-3">
-        <div class="card">
-            <img src="{{ url_for('static', filename='images/vision.jpg') }}" alt="BHCAPSI Vision" class="card-img">
-            <h3>Our Vision</h3>
-            <p>A healthy and empowered Bichi community where pandemic (HIV) transmission is reduced, people affected by HIV receive appropriate support, and everyone can access accurate information and essential health services without discrimination.</p>
+<!-- Focus Areas Section -->
+<section class="container" style="max-width: 1100px; margin: 50px auto; padding: 0 15px;">
+    <h2 style="text-align: center; color: #1a365d; margin-bottom: 40px;">Our Focus Areas</h2>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+        <div style="background: #ffffff; border: 1px solid #e2e8f0; border-top: 4px solid #2b6cb0; border-radius: 8px; padding: 25px; box-shadow: 0 2px 6px rgba(0,0,0,0.05);">
+            <h3 style="color: #2d3748;">HIV Prevention & Support</h3>
+            <p style="color: #718096; line-height: 1.5;">Awareness, confidential testing information, referral support, and reducing stigma across communities.</p>
         </div>
 
-        <div class="card">
-            <img src="{{ url_for('static', filename='images/mission.jpg') }}" alt="BHCAPSI Mission" class="card-img">
-            <h3>Our Mission</h3>
-            <p>To mobilize and empower individuals, families and communities in Bichi LGA through HIV awareness, prevention education, testing and referral, community outreach, psychosocial support and collaboration with health and development partners.</p>
+        <div style="background: #ffffff; border: 1px solid #e2e8f0; border-top: 4px solid #2b6cb0; border-radius: 8px; padding: 25px; box-shadow: 0 2px 6px rgba(0,0,0,0.05);">
+            <h3 style="color: #2d3748;">Communicable Disease</h3>
+            <p style="color: #718096; line-height: 1.5;">Promoting awareness and practical prevention measures for malaria, tuberculosis, and hepatitis.</p>
         </div>
 
-        <div class="card">
-            <img src="{{ url_for('static', filename='images/programmes.jpg') }}" alt="BHCAPSI Core Programmes" class="card-img">
-            <h3>Core Programmes</h3>
-            <p>HIV Awareness and Health Education, HIV Prevention, Care and Support, Community Outreach, Monitoring, Evaluation and Learning and HIV Testing and Linkage.</p>
+        <div style="background: #ffffff; border: 1px solid #e2e8f0; border-top: 4px solid #2b6cb0; border-radius: 8px; padding: 25px; box-shadow: 0 2px 6px rgba(0,0,0,0.05);">
+            <h3 style="color: #2d3748;">Non-Communicable Diseases</h3>
+            <p style="color: #718096; line-height: 1.5;">Education on hypertension, diabetes, cardiovascular diseases, and promoting healthy lifestyles.</p>
         </div>
+
+        <div style="background: #ffffff; border: 1px solid #e2e8f0; border-top: 4px solid #2b6cb0; border-radius: 8px; padding: 25px; box-shadow: 0 2px 6px rgba(0,0,0,0.05);">
+            <h3 style="color: #2d3748;">Community Outreach</h3>
+            <p style="color: #718096; line-height: 1.5;">Health education campaigns, local stakeholder engagement, and sharing reliable health resources.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Values & Commitment -->
+<section style="background: #f7fafc; padding: 50px 20px; border-top: 1px solid #e2e8f0;">
+    <div style="max-width: 900px; margin: 0 auto; text-align: center;">
+        <h2 style="color: #1a365d;">Our Commitment</h2>
+        <p style="color: #4a5568; line-height: 1.7; font-size: 1.05rem;">
+            We are committed to promoting respect, inclusion, confidentiality, responsible health communication, and community participation. We believe that every individual deserves dignity and access to accurate health information without stigma or discrimination.
+        </p>
     </div>
 </section>
 {% endblock %}

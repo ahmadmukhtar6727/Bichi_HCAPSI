@@ -42,8 +42,11 @@
         <nav class="nav-links">
             <a href="{{ url_for('home') }}">Home</a>
             <a href="{{ url_for('about') }}">About Us</a>
+	    <a href="{{ url_for('programs') }}">Our Programs</a>
+	    <a href="{{ url_for('centers') }}">Health Centers</a>
+	    <a href="{{ url_for('resources') }}">Health Resources & FAQ</a>
+	    <a href="{{ url_for('get_involved') }}">Get Involved</a>
             <a href="{{ url_for('contact') }}">Contact Us</a>
-	    <a href="{{ url_for('resources') }}">Resources & FAQ</a>
             {% if current_user is defined and current_user.is_authenticated %}
 		<a href="{{ url_for('admin_centers') }}">Manage Centers</a>
                 <a href="{{ url_for('register') }}">Register New Member</a>
