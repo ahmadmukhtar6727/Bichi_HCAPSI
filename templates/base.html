@@ -4,7 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Bichi Healthier Community Initiative (BHCAPSI){% endblock %}</title>
-    
+
+    <!-- Open Graph / WhatsApp / Facebook Meta Tags (with cache-buster) -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Bichi Healthier Community Initiative (BHCAPSI)">
+    <meta property="og:description" content="Building Healthier Communities Together — promoting health awareness, preventing disease, and reducing stigma across Bichi LGA, Kano State.">
+    <meta property="og:image" content="{{ url_for('static', filename='images/og-image.png', _external=True) }}?v=2">
+    <meta property="og:url" content="{{ request.url }}">
+
+    <!-- Twitter Card Meta Tags (with cache-buster) -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Bichi Healthier Community Initiative (BHCAPSI)">
+    <meta name="twitter:description" content="Building Healthier Communities Together — promoting health awareness, preventing disease, and reducing stigma.">
+    <meta name="twitter:image" content="{{ url_for('static', filename='images/og-image.png', _external=True) }}?v=2">
+
     <!-- CSS Styles -->
     <style>
         * {
@@ -145,9 +158,9 @@
     <header>
         <div class="header-container">
             
-            <!-- Far-Left Large Brand Logo -->
+            <!-- Far-Left Large Brand Logo (with cache-buster) -->
             <a href="{{ url_for('home') }}" class="brand-logo">
-                <img src="{{ url_for('static', filename='logo.png') }}" alt="BHCAPSI Logo" onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='inline';">
+                <img src="{{ url_for('static', filename='images/og-image.png') }}?v=2" alt="BHCAPSI Logo" onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='inline';">
                 <span id="logo-fallback" style="display: none; font-size: 2rem;">🏥</span>
                 <div class="brand-text-container">
                     <span class="brand-title">BHCAPSI</span>
