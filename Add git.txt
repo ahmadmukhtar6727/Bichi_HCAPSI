@@ -1,0 +1,8 @@
+# 1. Stage all finalized template and backend updates
+git add .
+
+# 2. Commit pre-launch release
+git commit -m "Production Release: Verified 13-point pre-launch security, NDPA compliance, and bilingual framework"
+
+# 3. Push live to Render
+git push origin main

@@ -12,6 +12,10 @@ app = Flask(__name__)
 # --- App Configurations ---
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'your-secret-key-goes-here')
 
+# Disable static file caching and enable auto-reload for instant updates during development
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
+app.config['TEMPLATES_AUTO_RELOAD'] = True
+
 # Dynamic Database Configuration (Render PostgreSQL in production vs local SQLite fallback)
 db_url = os.environ.get('DATABASE_URL', 'sqlite:///site.db')
 
@@ -132,7 +136,7 @@ with app.app_context():
                 phone="+234 800 000 0013",
                 hours="8:00 AM - 4:00 PM (Mon-Fri)"
             ),
-            # Fagwale Ward (Updated from Fagwalawa)
+            # Fagwale Ward
             HealthCenter(
                 name="Fagwale Primary Health Post",
                 ward="Fagwale Ward",
